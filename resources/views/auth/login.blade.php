@@ -6,7 +6,7 @@
     <title>Login - SanitaCheck</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-cover bg-center bg-no-repeat relative" style="background-image: url('{{ asset('images/sanita login.png') }}');">
+<body class="w-screen min-h-screen bg-cover bg-center bg-no-repeat bg-fixed relative" style="background-image: url('{{ asset('images/sanita login.png') }}');">
 
     <div class="absolute top-0 right-0 p-6 sm:p-8 flex items-center justify-end gap-4 z-10 w-full">
         <span class="text-gray-600 font-medium tracking-wide text-sm sm:text-base hidden sm:block drop-shadow-sm">ITSK RS dr. Soepraoen Kesdam V/BRW Malang</span>
