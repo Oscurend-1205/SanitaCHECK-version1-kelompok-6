@@ -26,13 +26,19 @@
                 ITSK RS dr.Soepraoen.
             </p>
 
-            <form action="#" method="POST" class="space-y-5">
+            <form action="{{ route('login.post') }}" method="POST" class="space-y-5">
                 @csrf
                 <div>
-                    <input type="text" name="username" placeholder="Username" class="w-full bg-[#f1f1f1] text-gray-800 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-[#2d6a36]/50 transition-all font-medium placeholder-gray-400">
+                    <input type="email" name="email" placeholder="Email" class="w-full bg-[#f1f1f1] text-gray-800 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-[#2d6a36]/50 transition-all font-medium placeholder-gray-400" required>
+                    @error('email')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div>
-                    <input type="password" name="password" placeholder="Password" class="w-full bg-[#f1f1f1] text-gray-800 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-[#2d6a36]/50 transition-all font-medium placeholder-gray-400">
+                    <input type="password" name="password" placeholder="Password" class="w-full bg-[#f1f1f1] text-gray-800 rounded-2xl px-5 py-4 focus:outline-none focus:ring-2 focus:ring-[#2d6a36]/50 transition-all font-medium placeholder-gray-400" required>
+                    @error('password')
+                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
                 
                 <div class="pt-2">
