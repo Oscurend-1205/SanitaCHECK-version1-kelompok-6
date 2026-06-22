@@ -1,58 +1,90 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SanitaCHECK - Kampus Sehat Terintegrasi
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplikasi **SanitaCHECK** adalah platform monitoring sanitasi terintegrasi untuk kampus yang dibangun menggunakan [Laravel 11](https://laravel.com) dan dikelola oleh **Kelompok 6**. Panel admin telah terintegrasi dengan template CoreUI untuk tampilan yang lebih modern, bersih, dan responsif.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 🛠 Persyaratan Sistem
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Sebelum menjalankan proyek ini, pastikan sistem Anda telah menginstal beberapa perangkat lunak berikut:
+- **PHP** (Versi 8.2 atau lebih baru)
+- **Composer** (Manajer paket untuk PHP)
+- **Node.js & npm** (Untuk manajemen aset frontend)
+- **Git** (Untuk version control)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🚀 Cara Instalasi & Menjalankan Proyek (Bagi Kolaborator)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Bagi kolaborator yang baru pertama kali bergabung, silakan ikuti langkah-langkah di bawah ini untuk mengkloning dan menjalankan website di komputer lokal (localhost):
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
+### 1. Clone Repository
+Buka terminal/command prompt dan jalankan perintah:
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone https://github.com/Oscurend-1205/SanitaCHECK-version1-kelompok-6.git
+cd SanitaCHECK-version1-kelompok-6
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### 2. Instalasi Dependensi PHP (Composer)
+Instal semua package Laravel yang dibutuhkan menggunakan Composer:
+```bash
+composer install
+```
 
-## Contributing
+### 3. Konfigurasi Environment (`.env`)
+Salin file konfigurasi contoh (environment) lalu buat file `.env` yang baru:
+```bash
+cp .env.example .env
+```
+*Catatan (Windows): Jika menggunakan Command Prompt Windows, jalankan `copy .env.example .env`.*
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Setelah file `.env` terbuat, jalankan perintah ini untuk men-generate App Key:
+```bash
+php artisan key:generate
+```
 
-## Code of Conduct
+### 4. Konfigurasi Database (MySQL)
+Proyek ini menggunakan **MySQL** untuk database. Anda harus mengatur database secara manual sebelum melakukan migrasi.
+- Buka aplikasi XAMPP/Laragon Anda dan pastikan MySQL berjalan.
+- Buat database baru bernama **`sanitacheck`** (contohnya melalui phpMyAdmin atau command line).
+- Buka file `.env` dan sesuaikan kredensial database Anda:
+  ```env
+  DB_CONNECTION=mysql
+  DB_HOST=127.0.0.1
+  DB_PORT=3306
+  DB_DATABASE=sanitacheck
+  DB_USERNAME=root
+  DB_PASSWORD=
+  ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Jalankan perintah berikut untuk membuat dan memigrasi struktur tabel database:
+```bash
+php artisan migrate
+```
 
-## Security Vulnerabilities
+### 5. Instalasi Dependensi Frontend (NPM)
+Instal library frontend dan CoreUI dependencies:
+```bash
+npm install
+npm run build
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 6. Jalankan Server Lokal
+Setelah semuanya siap, jalankan local development server Laravel:
+```bash
+php artisan serve
+```
 
-## License
+🌐 Buka browser Anda dan akses: **`http://localhost:8000`**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+*(Halaman uji coba Admin Panel dengan CoreUI bisa diakses di: **`http://localhost:8000/coreui-test`**)*
+
+---
+
+## 💡 Informasi Tambahan
+
+- **Tema Admin**: Tema admin terletak di `resources/views/layouts/admin.blade.php`. Aset dari template bawaan ada di folder `public/assets/admin`.
+- **Git Ignore**: Folder yang memuat file berukuran besar seperti `vendor/`, `node_modules/`, `public/assets/admin/node_modules/`, dan file database `database.sqlite` sudah otomatis diabaikan oleh `.gitignore` sehingga tidak akan membebani repository.
+
+## Kontributor
+- Kelompok 6
