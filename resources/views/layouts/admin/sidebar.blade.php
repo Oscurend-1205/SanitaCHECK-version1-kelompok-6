@@ -33,7 +33,7 @@
   <ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
     <li class="nav-title" style="color: #a3d9b1; font-size: 0.75rem;">MENU UTAMA</li>
     <li class="nav-item">
-      <a class="nav-link active" href="{{ url('/coreui-test') }}" style="background-color: rgba(255,255,255,0.15); border-left: 4px solid #fff;">
+      <a class="nav-link {{ request()->is('coreui-test') || request()->is('admin-dashboard') ? 'active' : '' }}" href="{{ url('/admin-dashboard') }}" {!! request()->is('coreui-test') || request()->is('admin-dashboard') ? 'style="background-color: rgba(255,255,255,0.15); border-left: 4px solid #fff;"' : '' !!}>
         <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path fill="var(--ci-primary-color, currentcolor)" d="M425.706 142.294A240 240 0 0 0 16 312v88h144v-32H48v-56c0-114.691 93.309-208 208-208s208 93.309 208 208v56H352v32h144v-88a238.43 238.43 0 0 0-70.294-169.706" class="ci-primary" />
           <path fill="var(--ci-primary-color, currentcolor)" d="M80 264h32v32H80zm160-136h32v32h-32zm-104 40h32v32h-32zm264 96h32v32h-32zm-102.778 71.1 69.2-144.173-28.85-13.848-69.183 144.135a64.141 64.141 0 1 0 28.833 13.886M256 416a32 32 0 1 1 32-32 32.036 32.036 0 0 1-32 32" class="ci-primary" />
@@ -42,7 +42,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link {{ request()->is('fasilitas-umum') ? 'active' : '' }}" href="{{ url('/fasilitas-umum') }}" {!! request()->is('fasilitas-umum') ? 'style="background-color: rgba(255,255,255,0.15); border-left: 4px solid #fff;"' : '' !!}>
         <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path fill="var(--ci-primary-color, currentcolor)" d="M472 40H40a24.03 24.03 0 0 0-24 24v384a24.03 24.03 0 0 0 24 24h432a24.03 24.03 0 0 0 24-24V64a24.03 24.03 0 0 0-24-24m-8 400H48V72h416Z" class="ci-primary" />
           <path fill="var(--ci-primary-color, currentcolor)" d="M152 240h32v-40h40v-32h-40v-40h-32v40h-40v32h40zm44.284 45.089L168 313.373l-28.284-28.284-22.627 22.627L145.373 336l-28.284 28.284 22.627 22.627L168 358.627l28.284 28.284 22.627-22.627L190.627 336l28.284-28.284zM288 168h112v32H288zm0 120h112v32H288zm0 64h112v32H288z" class="ci-primary" />
@@ -51,7 +51,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link {{ request()->is('inspeksi-sanitasi') ? 'active' : '' }}" href="{{ url('/inspeksi-sanitasi') }}" {!! request()->is('inspeksi-sanitasi') ? 'style="background-color: rgba(255,255,255,0.15); border-left: 4px solid #fff;"' : '' !!}>
         <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path fill="var(--ci-primary-color, currentcolor)" d="M334.627 16H48v480h424V153.373ZM440 166.627V168H320V48h1.373ZM80 464V48h208v152h152v264Z" class="ci-primary" />
           <path fill="var(--ci-primary-color, currentcolor)" d="M136 296h224v32H136zm0 80h224v32H136z" class="ci-primary" />
