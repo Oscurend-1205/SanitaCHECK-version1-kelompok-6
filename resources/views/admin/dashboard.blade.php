@@ -128,35 +128,35 @@
                                 <td class="text-center text-body-secondary small py-2">1</td>
                                 <td class="text-body-secondary small py-2">Toilet Lantai 2</td>
                                 <td class="text-body-secondary small py-2">Kampus 3</td>
-                                <td class="text-center py-2"><span class="badge bg-success" style="min-width: 70px; font-size: 0.7rem;">Kampus 3</span></td>
+                                <td class="text-center py-2"><span class="badge bg-success" style="min-width: 90px; font-size: 0.7rem;">Bersih & Aman</span></td>
                                 <td class="text-center text-body-secondary py-2">⋮</td>
                             </tr>
                             <tr>
                                 <td class="text-center text-body-secondary small py-2">2</td>
                                 <td class="text-body-secondary small py-2">Kantin Mami ITSK</td>
-                                <td class="text-body-secondary small py-2">Kampus 2</td>
-                                <td class="text-center py-2"><span class="badge bg-danger" style="min-width: 70px; font-size: 0.7rem;">Kampus 3</span></td>
+                                <td class="text-body-secondary small py-2">Campusp 2</td>
+                                <td class="text-center py-2"><span class="badge bg-danger" style="min-width: 90px; font-size: 0.7rem;">Buruk</span></td>
                                 <td class="text-center text-body-secondary py-2">⋮</td>
                             </tr>
                             <tr>
                                 <td class="text-center text-body-secondary small py-2">3</td>
                                 <td class="text-body-secondary small py-2">Wastafel Cuci Tangan</td>
                                 <td class="text-body-secondary small py-2">Kampus 4</td>
-                                <td class="text-center py-2"><span class="badge bg-warning text-dark" style="min-width: 70px; font-size: 0.7rem;">Kampus 3</span></td>
+                                <td class="text-center py-2"><span class="badge bg-warning text-dark" style="min-width: 90px; font-size: 0.7rem;">Perlu Perhatian</span></td>
                                 <td class="text-center text-body-secondary py-2">⋮</td>
                             </tr>
                             <tr>
                                 <td class="text-center text-body-secondary small py-2">4</td>
                                 <td class="text-body-secondary small py-2">Lobby Rektorat ITSK Soepraoen</td>
                                 <td class="text-body-secondary small py-2">Kampus 2</td>
-                                <td class="text-center py-2"><span class="badge bg-warning text-dark" style="min-width: 70px; font-size: 0.7rem;">Kampus 3</span></td>
+                                <td class="text-center py-2"><span class="badge bg-warning text-dark" style="min-width: 90px; font-size: 0.7rem;">Perlu Perhatian</span></td>
                                 <td class="text-center text-body-secondary py-2">⋮</td>
                             </tr>
                             <tr>
                                 <td class="text-center text-body-secondary small py-2">5</td>
                                 <td class="text-body-secondary small py-2">LPPM ITSK Soepraoen</td>
                                 <td class="text-body-secondary small py-2">Kampus 2</td>
-                                <td class="text-center py-2"><span class="badge bg-warning text-dark" style="min-width: 70px; font-size: 0.7rem;">Kampus 3</span></td>
+                                <td class="text-center py-2"><span class="badge bg-warning text-dark" style="min-width: 90px; font-size: 0.7rem;">Perlu Perhatian</span></td>
                                 <td class="text-center text-body-secondary py-2">⋮</td>
                             </tr>
                         </tbody>
@@ -172,39 +172,39 @@
     <!-- Fasilitas dengan Masalah Terbanyak -->
     <div class="col-md-5">
         <div class="card h-100 border shadow-sm" style="border-radius: 10px;">
-            <div class="card-body p-3">
+            <div class="card-body p-3 d-flex flex-column">
                 <h6 class="card-title text-success fw-bold mb-3">Masalah Terbanyak</h6>
                 
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="d-flex align-items-center">
                         <span class="text-body-secondary small me-2 fw-bold">1</span>
-                        <span class="text-body-secondary small">Kantin Mami ITSK</span>
+                        <span class="text-body-secondary small">Lobby Rektorat ITSK</span>
                     </div>
-                    <span class="badge bg-danger rounded-pill px-2 py-1" style="font-size: 0.7rem;">4 Kali</span>
+                    <span class="badge bg-danger rounded-pill px-2 py-1" style="font-size: 0.7rem;">8 Kali</span>
                 </div>
                 
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="d-flex align-items-center">
                         <span class="text-body-secondary small me-2 fw-bold">2</span>
-                        <span class="text-body-secondary small">Wastafel Cuci Tangan</span>
+                        <span class="text-body-secondary small">LPPM ITSK Soepraoen</span>
                     </div>
-                    <span class="badge bg-warning text-dark rounded-pill px-2 py-1" style="font-size: 0.7rem;">2 Kali</span>
+                    <span class="badge bg-warning text-dark rounded-pill px-2 py-1" style="font-size: 0.7rem;">7 Kali</span>
                 </div>
                 
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="d-flex align-items-center">
                         <span class="text-body-secondary small me-2 fw-bold">3</span>
-                        <span class="text-body-secondary small">Lobby Rektorat ITSK</span>
+                        <span class="text-body-secondary small">Kantin Mami ITSK</span>
                     </div>
-                    <span class="badge bg-warning text-dark rounded-pill px-2 py-1" style="font-size: 0.7rem;">8 Kali</span>
+                    <span class="badge bg-warning text-dark rounded-pill px-2 py-1" style="font-size: 0.7rem;">4 Kali</span>
                 </div>
                 
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="d-flex align-items-center">
                         <span class="text-body-secondary small me-2 fw-bold">4</span>
-                        <span class="text-body-secondary small">LPPM ITSK Soepraoen</span>
+                        <span class="text-body-secondary small">Wastafel Cuci Tangan</span>
                     </div>
-                    <span class="badge bg-warning text-dark rounded-pill px-2 py-1" style="font-size: 0.7rem;">7 Kali</span>
+                    <span class="badge bg-warning text-dark rounded-pill px-2 py-1" style="font-size: 0.7rem;">2 Kali</span>
                 </div>
                 
                 <div class="mt-auto text-end pt-2">
@@ -280,7 +280,7 @@
                         // Total number
                         ctx.font = "bold 2.5em sans-serif";
                         ctx.textBaseline = "middle";
-                        ctx.fillStyle = getThemeColors().textColor; // Ambil warna terbaru saat render
+                        ctx.fillStyle = getThemeColors().textColor;
                         var text = "25",
                             textX = Math.round((chart.chartArea.left + chart.chartArea.right - ctx.measureText(text).width) / 2),
                             textY = (chart.chartArea.top + chart.chartArea.bottom) / 2 - 10;

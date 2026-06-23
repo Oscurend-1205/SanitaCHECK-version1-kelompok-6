@@ -1,0 +1,137 @@
+[
+  {
+    "No": 1,
+    "Tanggal": "14 Juni 2026",
+    "Nama Anggota": "Kelompok 6 (Developer)",
+    "Tools AI": "Antigravity (Google DeepMind AI)",
+    "Prompt Penting": "Fixing InfinityFree Deployment Errors and troubleshooting 500 internal server error",
+    "Hasil dari AI": "AI memberikan perbaikan skrip deployment PHP ZipArchive untuk menggantikan tar.exe dan perbaikan path storage/bootstrap agar kompatibel dengan shared hosting",
+    "Verifikasi/Revisi Tim": "Skrip diuji ulang dan berhasil dieksekusi di InfinityFree tanpa error 500"
+  },
+  {
+    "No": 2,
+    "Tanggal": "16 Juni 2026",
+    "Nama Anggota": "Kelompok 6 (Developer)",
+    "Tools AI": "Antigravity (Google DeepMind AI)",
+    "Prompt Penting": "Membangun sistem modul direktori dokter (Dynamic Doctor Directory) dengan autocomplete pencarian",
+    "Hasil dari AI": "AI membuat skema database doctors, form manajemen CRUD, dan integrasi autocomplete berbasis JSON/Ajax",
+    "Verifikasi/Revisi Tim": "Tim menyesuaikan struktur field pada tabel doctors agar relevan dengan spesifikasi fitur lain"
+  },
+  {
+    "No": 3,
+    "Tanggal": "17 Juni 2026",
+    "Nama Anggota": "Kelompok 6 (Developer)",
+    "Tools AI": "Antigravity (Google DeepMind AI)",
+    "Prompt Penting": "Refactoring Dashboard Sidebar Component, pisahkan sidebar ke reusable Blade component",
+    "Hasil dari AI": "AI memodularisasi sidebar.blade.php sehingga dapat diakses via komponen layout master admin",
+    "Verifikasi/Revisi Tim": "Kode diverifikasi dan disesuaikan sedikit pada routing aktif (active state)"
+  },
+  {
+    "No": 4,
+    "Tanggal": "19 Juni 2026",
+    "Nama Anggota": "Kelompok 6 (Developer)",
+    "Tools AI": "Antigravity (Google DeepMind AI)",
+    "Prompt Penting": "Implementasi Dynamic Address Autocomplete untuk sistem form dari dataset JSON IndoArea",
+    "Hasil dari AI": "AI membuat skrip logika JavaScript untuk membaca file IndoArea JSON dan mengimplementasikan dependent dropdown wilayah (provinsi sampai desa)",
+    "Verifikasi/Revisi Tim": "Tim memastikan DOM element target di dalam HTML sudah terpasang dengan benar sesuai id yang dipanggil"
+  },
+  {
+    "No": 5,
+    "Tanggal": "22 Juni 2026",
+    "Nama Anggota": "Kelompok 6 (Developer)",
+    "Tools AI": "Antigravity (Google DeepMind AI)",
+    "Prompt Penting": "Integrasi CoreUI Admin Template untuk framework Laravel proyek SanitaCheck",
+    "Hasil dari AI": "AI menyusun dan mengintegrasikan file aset CoreUI ke dalam struktur layout Blade (header, sidebar, footer, wrapper app)",
+    "Verifikasi/Revisi Tim": "Struktur layout divalidasi dan tim menambahkan penyesuaian warna hijau khas proyek"
+  },
+  {
+    "No": 6,
+    "Tanggal": "22 Juni 2026",
+    "Nama Anggota": "Kelompok 6 (Developer)",
+    "Tools AI": "Antigravity (Google DeepMind AI)",
+    "Prompt Penting": "Clearing GitHub Repository Data pada direktori lokal",
+    "Hasil dari AI": "AI membersihkan history git yang kacau dan memberikan step-by-step perintah Terminal untuk inisialisasi git ulang",
+    "Verifikasi/Revisi Tim": "Proyek di-commit ulang dan di-push ke branch repository kelompok"
+  },
+  {
+    "No": 7,
+    "Tanggal": "22 Juni 2026",
+    "Nama Anggota": "Kelompok 6 (Developer)",
+    "Tools AI": "Antigravity (Google DeepMind AI)",
+    "Prompt Penting": "Buat halaman login saat pertama web diakses, styling CSS menggunakan background dan logo di public/assets/image",
+    "Hasil dari AI": "AI membuat file resource views auth/login.blade.php yang responsif beserta background image, styling overlay, dan layout form login",
+    "Verifikasi/Revisi Tim": "Tim menyesuaikan intensitas glassmorphism effect agar lebih menyatu dengan background"
+  },
+  {
+    "No": 8,
+    "Tanggal": "22 Juni 2026",
+    "Nama Anggota": "Kelompok 6 (Developer)",
+    "Tools AI": "Antigravity (Google DeepMind AI)",
+    "Prompt Penting": "Perbaiki routing, pastikan ketika login dengan user test masuknya ke /admin-dashboard",
+    "Hasil dari AI": "AI memperbarui LoginController dengan method authenticated() untuk melakukan redirect ke halaman spesifik sesuai string Role user dan memberlakukan middleware",
+    "Verifikasi/Revisi Tim": "Proses authentication diuji dan berhasil me-redirect akun percobaan (username test) ke dashboard"
+  },
+  {
+    "No": 9,
+    "Tanggal": "23 Juni 2026",
+    "Nama Anggota": "Kelompok 6 (Developer)",
+    "Tools AI": "Antigravity (Google DeepMind AI)",
+    "Prompt Penting": "Pastikan di sidebar panel admin tombol logout berfungsi",
+    "Hasil dari AI": "AI menambahkan tag form POST hidden di sidebar.blade.php (terlindung token @csrf) dan trigger javascript onClick pada link logout",
+    "Verifikasi/Revisi Tim": "Tombol ditekan, terverifikasi bahwa sesi di-destroy dan user kembali ke laman login"
+  },
+  {
+    "No": 10,
+    "Tanggal": "23 Juni 2026",
+    "Nama Anggota": "Kelompok 6 (Developer)",
+    "Tools AI": "Antigravity (Google DeepMind AI)",
+    "Prompt Penting": "Di panel admin semua logo sanitacheck pakai public/assets/image/logo-sanitacheck.png",
+    "Hasil dari AI": "AI mencari file blade di layout admin yang menggunakan SVG placeholder, lalu menukar semuanya menjadi tag img asset file logo asli",
+    "Verifikasi/Revisi Tim": "Tim menghapus filter invert brightness pada CSS logo agar warna gradasi aslinya tetap terpancar"
+  },
+  {
+    "No": 11,
+    "Tanggal": "23 Juni 2026",
+    "Nama Anggota": "Kelompok 6 (Developer)",
+    "Tools AI": "Antigravity (Google DeepMind AI)",
+    "Prompt Penting": "Buat database mysql dengan Entitas dan Kebutuhan Data Minimal (Fasilitas Umum & Inspeksi Sanitasi)",
+    "Hasil dari AI": "AI mengonversi daftar kebutuhan relasi menjadi file database migrations Laravel dan Models lengkap dengan enum, boolean type, dan relasi foreignKey",
+    "Verifikasi/Revisi Tim": "Migration 'php artisan migrate' dieksekusi dan struktur tabel dipastikan sesuai di PhpMyAdmin"
+  },
+  {
+    "No": 12,
+    "Tanggal": "23 Juni 2026",
+    "Nama Anggota": "Kelompok 6 (Developer)",
+    "Tools AI": "Antigravity (Google DeepMind AI)",
+    "Prompt Penting": "Perbaiki halaman inspeksi sanitasi (tampilkan data dummy)",
+    "Hasil dari AI": "AI mengganti status 'Belum ada data' dengan logika array @php dummy data di Blade agar tampilan tabel inspeksi lebih realistis dan penuh",
+    "Verifikasi/Revisi Tim": "Tim mengubah margin, ukuran teks, dan membuat desain responsif menjadi lebih padat (.extra-small)"
+  },
+  {
+    "No": 13,
+    "Tanggal": "23 Juni 2026",
+    "Nama Anggota": "Kelompok 6 (Developer)",
+    "Tools AI": "Antigravity (Google DeepMind AI)",
+    "Prompt Penting": "Di halaman inspeksi tambahkan tombol riwayat tindak lanjut yg mengarah ke halaman riwayat",
+    "Hasil dari AI": "AI merancang ulang baris header card dan menambahkan tautan anchor (outline success button) yang menuju route /riwayat-tindak-lanjut berdampingan dengan tombol Tambah Inspeksi",
+    "Verifikasi/Revisi Tim": "Pengujian tautan berhasil mengarah pada rute halaman riwayat yang diminta"
+  },
+  {
+    "No": 14,
+    "Tanggal": "23 Juni 2026",
+    "Nama Anggota": "Kelompok 6 (Developer)",
+    "Tools AI": "Antigravity (Google DeepMind AI)",
+    "Prompt Penting": "Penyesuaian UI profil dan dashboard agar desain lebih minimalis (kolaborasi tim dan AI)",
+    "Hasil dari AI": "AI memberikan rekomendasi perbaikan border, styling komponen stat badge, dan integrasi ukuran teks adaptif tema gelap (dark mode)",
+    "Verifikasi/Revisi Tim": "Tim secara manual merapikan spacing, .py-1d5, dan penempatan widget agar muat nyaman dipandang pengguna"
+  },
+  {
+    "No": 15,
+    "Tanggal": "23 Juni 2026",
+    "Nama Anggota": "Kelompok 6 (Developer)",
+    "Tools AI": "Antigravity (Google DeepMind AI)",
+    "Prompt Penting": "Analisis isi public/assets/desain dan buat rekomendasi untuk kebutuhan halaman role pengguna yang simpel",
+    "Hasil dari AI": "AI mengidentifikasi aset grafis yang tersedia dan merumuskan struktur fitur utama (Dashboard, Fasilitas, Inspeksi) untuk role Petugas vs Admin",
+    "Verifikasi/Revisi Tim": "Konsep disetujui dan diterapkan sebagai panduan pembuatan Sidebar dan routing permission"
+  }
+]

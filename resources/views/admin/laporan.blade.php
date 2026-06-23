@@ -81,6 +81,7 @@
     <div class="col-sm-6 col-lg-2 mb-2">
         <div class="card border shadow-sm h-100" style="border-radius: 12px;">
             <div class="card-body p-2 d-flex align-items-center">
+                <!-- Icon container menggunakan text-white agar ikon di dalam background berwarna tetap putih terang -->
                 <div class="bg-{{ $kpi[3] }} text-white me-2 d-flex justify-content-center align-items-center shadow-sm" style="border-radius: 8px; width: 42px; height: 42px; min-width: 42px;">
                     @if($i === 5)
                         <svg class="icon" style="width: 20px; height: 20px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48m0 368a160 160 0 1 1 160-160 160.182 160.182 0 0 1-160 160"/><path fill="currentColor" d="M256 128a128 128 0 1 0 128 128 128.144 128.144 0 0 0-128-128m0 192a64 64 0 1 1 64-64 64.072 64.072 0 0 1-64 64"/></svg>
@@ -89,8 +90,9 @@
                     @endif
                 </div>
                 <div>
-                    <div class="text-success fw-bold" style="font-size: 0.7rem;">{{ $kpi[0] }}</div>
-                    <div class="fw-bold text-success" style="font-size: 1.3rem; line-height: 1;">{{ $kpi[1] }}</div>
+                    <!-- Diubah dari text-success menjadi text-body-secondary / text-body -->
+                    <div class="text-body-secondary fw-semibold" style="font-size: 0.7rem;">{{ $kpi[0] }}</div>
+                    <div class="fw-bold text-body" style="font-size: 1.3rem; line-height: 1;">{{ $kpi[1] }}</div>
                     <div class="text-body-secondary" style="font-size: 0.65rem;">{{ $kpi[2] }}</div>
                 </div>
             </div>
@@ -187,7 +189,8 @@
                                 <td class="text-center small py-2"><span class="text-danger fw-semibold">{{ $row[5] }}</span></td>
                                 <td class="text-center py-2">
                                     <span class="small fw-bold" style="font-size: 0.8rem;">{{ $row[6] }}</span>
-                                    <span class="badge bg-{{ $row[7] === 'success' ? 'success' : ($row[7] === 'warning' ? 'warning text-dark' : 'danger') }} ms-1" style="font-size: 0.7rem;">{{ $row[8] }}</span>
+                                    <!-- Memperbaiki pewarnaan badge warning agar teks terbaca di tema putih -->
+                                    <span class="badge {{ $row[7] === 'warning' ? 'bg-warning text-dark' : 'bg-'.$row[7] }} ms-1" style="font-size: 0.7rem;">{{ $row[8] }}</span>
                                 </td>
                             </tr>
                             @endforeach
@@ -216,7 +219,7 @@
                         <span class="text-body-secondary small me-2 fw-bold">{{ $i + 1 }}</span>
                         <span class="small">{{ $item[0] }}</span>
                     </div>
-                    <span class="badge bg-{{ $item[3] }} rounded-pill px-2 py-1" style="font-size: 0.7rem;">{{ $item[1] }}x ({{ $item[2] }})</span>
+                    <span class="badge {{ $item[3] === 'warning' ? 'bg-warning text-dark' : 'bg-'.$item[3] }} rounded-pill px-2 py-1" style="font-size: 0.7rem;">{{ $item[1] }}x ({{ $item[2] }})</span>
                 </div>
                 @endforeach
                 <div class="mt-2 text-end">
@@ -324,7 +327,6 @@
         </div>
     </div>
 </div>
-
 @endsection
 
 @push('scripts')
@@ -334,15 +336,16 @@ document.addEventListener("DOMContentLoaded", function() {
     function getThemeColors() {
         const isDarkMode = document.documentElement.getAttribute('data-coreui-theme') === 'dark';
         return {
-            textColor: isDarkMode ? 'rgba(255, 255, 255, 0.87)' : '#333',
+            // Perbaikan warna text chart agar fleksibel saat dark/light mode
+            textColor: isDarkMode ? 'rgba(255, 255, 255, 0.87)' : '#212529',
             gridColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
         };
     }
 
-    const colors = getThemeColors();
+    let colors = getThemeColors();
 
     // Trend Line Chart
-    new Chart(document.getElementById('trendLineChart').getContext('2d'), {
+    let trendChart = new Chart(document.getElementById('trendLineChart').getContext('2d'), {
         type: 'line',
         data: {
             labels: ['Des 24', 'Jan 25', 'Feb 25', 'Mar 25', 'Apr 25', 'Mei 25'],
@@ -363,7 +366,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Condition Doughnut
-    new Chart(document.getElementById('conditionDoughnut').getContext('2d'), {
+    let conditionChart = new Chart(document.getElementById('conditionDoughnut').getContext('2d'), {
         type: 'doughnut',
         data: {
             labels: ['Baik (44%)', 'Cukup (30%)', 'Buruk (26%)'],
@@ -382,13 +385,35 @@ document.addEventListener("DOMContentLoaded", function() {
                 ctx.textBaseline = "middle";
                 ctx.fillStyle = colors.textColor;
                 const text = "86", textX = Math.round((chart.chartArea.left + chart.chartArea.right - ctx.measureText(text).width) / 2), textY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
-                ctx.fillText(text, textX, textY);
+                ctx.fillText(text, textX, textY - 10); // sedikit naik agar teks "Total" pas di bawahnya
                 ctx.font = "0.8em sans-serif";
-                ctx.fillText("Total", textX + 5, textY + 22);
+                ctx.fillText("Total", textX + 2, textY + 15);
                 ctx.save();
             }
         }]
     });
+
+    // Observer untuk mendeteksi perubahan tema tanpa refresh halaman
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.attributeName === 'data-coreui-theme') {
+                colors = getThemeColors();
+                
+                // Update Trend Line Chart
+                trendChart.options.plugins.legend.labels.color = colors.textColor;
+                trendChart.options.scales.y.ticks.color = colors.textColor;
+                trendChart.options.scales.y.grid.color = colors.gridColor;
+                trendChart.options.scales.x.ticks.color = colors.textColor;
+                trendChart.update();
+
+                // Update Doughnut Chart
+                conditionChart.options.plugins.legend.labels.color = colors.textColor;
+                conditionChart.update();
+            }
+        });
+    });
+
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-coreui-theme'] });
 });
 </script>
 @endpush

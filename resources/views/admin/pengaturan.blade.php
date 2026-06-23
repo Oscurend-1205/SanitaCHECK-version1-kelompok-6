@@ -41,7 +41,7 @@
                     <label class="form-label small fw-semibold text-body-secondary mb-1">Logo Instansi</label>
                     <div class="d-flex align-items-center p-3 border rounded" style="border-radius: 8px; border-style: dashed !important; background-color: var(--cui-tertiary-bg); cursor: pointer;">
                         <div class="bg-light d-flex justify-content-center align-items-center me-3" style="width: 60px; height: 60px; border-radius: 8px;">
-                            <svg style="width: 30px; height: 30px;" class="text-body-secondary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48m0 384A176 176 0 1 1 432 256 176 176 0 0 1 256 432Z"/></svg>
+                            <img src="{{ asset('assets/image/logo-sanitacheck.png') }}" alt="Logo Instansi" style="width: 40px; height: 40px; object-fit: contain;">
                         </div>
                         <div>
                             <div class="fw-semibold small">Klik untuk mengganti logo</div>

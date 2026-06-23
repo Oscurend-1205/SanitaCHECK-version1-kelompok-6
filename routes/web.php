@@ -3,16 +3,15 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('/admin-dashboard', function () {
-    return view('admin.dashboard');
-});
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin-dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin-dashboard');
 
 Route::get('/fasilitas-umum', function () {
     return view('admin.fasilitas');
@@ -49,3 +48,5 @@ Route::get('/profil', function () {
 Route::get('/pengaturan', function () {
     return view('admin.pengaturan');
 });
+
+}); // Tutup middleware auth
