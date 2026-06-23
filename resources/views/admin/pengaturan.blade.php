@@ -41,7 +41,7 @@
                     <label class="form-label small fw-semibold text-body-secondary mb-1">Logo Instansi</label>
                     <div class="d-flex align-items-center p-3 border rounded" style="border-radius: 8px; border-style: dashed !important; background-color: var(--cui-tertiary-bg); cursor: pointer;">
                         <div class="bg-light d-flex justify-content-center align-items-center me-3" style="width: 60px; height: 60px; border-radius: 8px;">
-                            <img src="{{ asset('assets/image/logo-sanitacheck.png') }}" alt="Logo Instansi" style="width: 40px; height: 40px; object-fit: contain;">
+                            <img src="{{ asset('assets/images/logo-sanita.png') }}" alt="Logo Instansi" style="width: 40px; height: 40px; object-fit: contain;">
                         </div>
                         <div>
                             <div class="fw-semibold small">Klik untuk mengganti logo</div>

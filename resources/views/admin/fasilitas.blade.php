@@ -122,13 +122,36 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse($fasilitas as $i => $item)
                     <tr>
-                        <td colspan="7" class="text-center py-4">
-                            <div class="d-flex flex-column align-items-center justify-content-center py-3">
-                                <p class="text-body-secondary mb-0" style="font-size: 0.85rem;">Belum ada data yang di tambahkan</p>
+                        <td class="text-center text-body-secondary small py-2">{{ $i + 1 }}</td>
+                        <td class="small py-2 fw-semibold">{{ $item->nama_fasilitas }}</td>
+                        <td class="text-body-secondary small py-2">{{ ucfirst($item->jenis_fasilitas) }}</td>
+                        <td class="text-body-secondary small py-2">{{ $item->lokasi }}</td>
+                        <td class="text-body-secondary small py-2">{{ $item->penanggung_jawab }}</td>
+                        <td class="text-center py-2">
+                            <span class="badge {{ $item->status_aktif ? 'bg-success' : 'bg-warning text-dark' }}">{{ $item->status_aktif ? 'Aktif' : 'Tidak Aktif' }}</span>
+                        </td>
+                        <td class="text-center py-2">
+                            <div class="d-flex justify-content-center gap-1">
+                                <button class="btn btn-sm btn-outline-warning border-0 p-1" title="Edit">
+                                    <svg style="width: 16px; height: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M410.262 80.912l-29.5-29.5a55.154 55.154 0 0 0-77.95 0L68.25 285.974a24.006 24.006 0 0 0-7.029 16.97L48 416l113.056-13.221a24.006 24.006 0 0 0 16.97-7.029L410.262 158.812a55.154 55.154 0 0 0 0-77.9M162.971 371.029L112 368l3.029-50.971L316.941 115.088 364.912 163.059Z"/></svg>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger border-0 p-1" title="Hapus">
+                                    <svg style="width: 16px; height: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320H112zm280 0v32h24a24 24 0 0 0 0-48H160a24 24 0 0 0 0 48h24v-32H80v-32h352v32z"/></svg>
+                                </button>
                             </div>
                         </td>
                     </tr>
+                    @empty
+                    <tr>
+                        <td colspan="7" class="text-center py-4">
+                            <div class="d-flex flex-column align-items-center justify-content-center py-3">
+                                <p class="text-body-secondary mb-0" style="font-size: 0.85rem;">Belum ada data fasilitas yang ditambahkan</p>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

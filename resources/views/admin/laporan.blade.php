@@ -264,40 +264,30 @@
                         <thead style="border-bottom: 1px solid var(--cui-border-color);">
                             <tr>
                                 <th class="text-center text-success py-2" style="font-size: 0.8rem;">No</th>
-                                <th class="text-success py-2" style="font-size: 0.8rem;">Nama Laporan</th>
-                                <th class="text-success py-2" style="font-size: 0.8rem;">Periode</th>
-                                <th class="text-success py-2" style="font-size: 0.8rem;">Dibuat Oleh</th>
+                                <th class="text-success py-2" style="font-size: 0.8rem;">Fasilitas</th>
+                                <th class="text-success py-2" style="font-size: 0.8rem;">Pelapor</th>
+                                <th class="text-success py-2" style="font-size: 0.8rem;">Catatan</th>
                                 <th class="text-success py-2" style="font-size: 0.8rem;">Tanggal</th>
-                                <th class="text-center text-success py-2" style="font-size: 0.8rem;">Aksi</th>
+                                <th class="text-center text-success py-2" style="font-size: 0.8rem;">Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach([
-                                ['Laporan Rekap Sanitasi Mei 2025', '01/05/2025 – 22/05/2025', 'Admin', '22/05/2025 10:30'],
-                                ['Laporan Rekap Sanitasi April 2025', '01/04/2025 – 30/04/2025', 'Admin', '30/04/2025 09:15'],
-                                ['Laporan Rekap Sanitasi Maret 2025', '01/03/2025 – 31/03/2025', 'Admin', '31/03/2025 14:20'],
-                            ] as $i => $report)
+                            @forelse($laporans as $i => $report)
                             <tr>
                                 <td class="text-center text-body-secondary small py-2">{{ $i + 1 }}</td>
-                                <td class="small py-2 fw-semibold">{{ $report[0] }}</td>
-                                <td class="text-body-secondary small py-2">{{ $report[1] }}</td>
-                                <td class="text-body-secondary small py-2">{{ $report[2] }}</td>
-                                <td class="text-body-secondary small py-2">{{ $report[3] }}</td>
+                                <td class="small py-2 fw-semibold">{{ $report->fasilitas->nama_fasilitas ?? 'Umum' }}</td>
+                                <td class="text-body-secondary small py-2">{{ $report->nama_pelapor }}</td>
+                                <td class="text-body-secondary small py-2">{{ Str::limit($report->catatan, 40) }}</td>
+                                <td class="text-body-secondary small py-2">{{ $report->created_at->format('d/m/Y H:i') }}</td>
                                 <td class="text-center py-2">
-                                    <div class="d-flex justify-content-center gap-1">
-                                        <button class="btn btn-sm btn-outline-primary border-0 p-1" title="Lihat">
-                                            <svg style="width: 16px; height: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 112C146.45 112 49.28 182.18 16.37 253.24a16 16 0 0 0 0 13.52C49.28 337.82 146.45 408 256 408s206.72-70.18 239.63-141.24a16 16 0 0 0 0-13.52C462.72 182.18 365.55 112 256 112m0 256a112 112 0 1 1 112-112 112.126 112.126 0 0 1-112 112"/></svg>
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-success border-0 p-1" title="Unduh">
-                                            <svg style="width: 16px; height: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 336l115.313-130.688L347.687 176 272 261.313V16h-32v245.313L164.313 176l-23.626 29.312z"/><path fill="currentColor" d="M464 336v128H48V336H16v144a16 16 0 0 0 16 16h448a16 16 0 0 0 16-16V336z"/></svg>
-                                        </button>
-                                        <button class="btn btn-sm btn-outline-danger border-0 p-1" title="Hapus">
-                                            <svg style="width: 16px; height: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320H112zm280 0v32h24a24 24 0 0 0 0-48H160a24 24 0 0 0 0 48h24v-32H80v-32h352v32z"/></svg>
-                                        </button>
-                                    </div>
+                                    <span class="badge {{ $report->status == 'Selesai' ? 'bg-success' : ($report->status == 'Diproses' ? 'bg-primary' : 'bg-warning text-dark') }}">{{ $report->status }}</span>
                                 </td>
                             </tr>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="6" class="text-center py-4 text-muted">Belum ada keluhan laporan.</td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

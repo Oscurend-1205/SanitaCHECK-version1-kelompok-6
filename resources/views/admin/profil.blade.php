@@ -16,7 +16,7 @@
             <div class="card-body p-3 text-center">
                 <div class="mb-2 position-relative d-inline-block">
                     <div class="rounded-circle overflow-hidden mx-auto border shadow-sm" style="width: 90px; height: 90px; border-width: 3px !important; border-color: #1b5e3a !important;">
-                        <img src="{{ asset('assets/admin/dist/assets/img/avatars/8.jpg') }}" alt="Profile" class="w-100 h-100" style="object-fit: cover;">
+                        <img src="https://ui-avatars.com/api/?name=Admin&background=1b5e3a&color=fff" alt="Profile" class="w-100 h-100" style="object-fit: cover;">
                     </div>
                 </div>
                 <h5 class="fw-bold mb-0" style="color: #1b5e3a; font-size: 1.1rem;">Admin SanitaCheck</h5>

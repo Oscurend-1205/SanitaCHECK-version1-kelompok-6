@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Fasilitas extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'nama_fasilitas',
         'jenis_fasilitas',
@@ -17,5 +20,10 @@ class Fasilitas extends Model
     public function inspeksis()
     {
         return $this->hasMany(Inspeksi::class);
+    }
+
+    public function laporan()
+    {
+        return $this->hasMany(Laporan::class);
     }
 }

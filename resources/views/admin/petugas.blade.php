@@ -310,7 +310,7 @@
                                     <td class="text-center py-2 px-1">{{ $i + 1 }}</td>
                                     <td class="py-2">
                                         <div class="d-flex align-items-center">
-                                            <img src="{{ asset('assets/admin/dist/assets/img/avatars/' . $petugas[4]) }}" alt="user" class="rounded-circle sanita-avatar me-2 border shadow-sm">
+                                            <img src="https://ui-avatars.com/api/?name={{ urlencode($petugas[0]) }}&background=random" alt="user" class="rounded-circle sanita-avatar me-2 border shadow-sm">
                                             <span class="fw-semibold text-body lh-sm small">{{ $petugas[0] }}</span>
                                         </div>
                                     </td>
@@ -407,7 +407,7 @@
                                 <tr>
                                     <td class="py-1d5 pe-2" width="40%">
                                         <div class="d-flex align-items-center">
-                                            <img src="{{ asset('assets/admin/dist/assets/img/avatars/' . $schedule[7]) }}" alt="user" class="rounded-circle sanita-avatar me-2 border shadow-sm" style="width: 24px; height: 24px;">
+                                            <img src="https://ui-avatars.com/api/?name={{ urlencode($schedule[0]) }}&background=random" alt="user" class="rounded-circle sanita-avatar me-2 border shadow-sm" style="width: 24px; height: 24px;">
                                             <div class="lh-sm">
                                                 <span class="fw-semibold text-body small">{{ $schedule[0] }}</span>
                                                 <div class="extra-small-desc lh-1">{{ $schedule[1] }}</div>

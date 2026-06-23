@@ -2,7 +2,7 @@
   
   <div class="sidebar-header border-bottom" style="background-color: #1b5e3a; border-color: rgba(255,255,255,0.1) !important; padding: 0.75rem 1rem;">
     <div class="sidebar-brand me-auto" style="display: flex; align-items: center; gap: 8px; width: 100%;">
-      <img src="{{ asset('assets/image/logo-sanitacheck.png') }}" alt="Logo SanitaCheck" style="width: 42px; height: 42px; object-fit: contain;">
+      <img src="{{ asset('assets/images/logo-sanita.png') }}" alt="Logo SanitaCheck" style="width: 42px; height: 42px; object-fit: contain;">
       <div style="line-height: 1.2;">
         <h5 class="mb-0" style="font-weight: 700; letter-spacing: 0.5px; font-size: 1.15rem; color: #ffffff;">SanitaCheck</h5>
         <div style="font-size: 0.62rem; color: #a3d9b1; white-space: nowrap;">Kampus Sehat Terintegrasi</div>
@@ -14,7 +14,7 @@
   <div class="sidebar-header border-bottom" style="background-color: #1b5e3a; border-color: rgba(255,255,255,0.1) !important; padding: 0.85rem 1rem;">
     <div class="d-flex align-items-center">
       <div class="avatar avatar-md me-3" style="width: 38px; height: 38px;">
-        <img class="avatar-img" src="{{ asset('assets/admin/dist/assets/img/avatars/8.jpg') }}" alt="Admin" style="border-radius: 50%;">
+        <img class="avatar-img" src="https://ui-avatars.com/api/?name=Admin&background=1b5e3a&color=fff" alt="Admin" style="border-radius: 50%;">
       </div>
       <div style="line-height: 1.3;">
         <div class="fw-bold text-white" style="font-size: 0.9rem;">Admin</div>

@@ -34,26 +34,46 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Simulasi submit (Ajax POST)
-            // Mengingat backend belum siap, kita mock response
             const btnSubmit = document.getElementById('btn-submit');
             const originalText = btnSubmit.innerHTML;
             btnSubmit.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Mengirim...';
             btnSubmit.disabled = true;
 
-            setTimeout(() => {
-                // Tampilkan sukses (menggunakan Bootstrap Toast atau Alert biasa)
-                const successAlert = document.getElementById('success-alert');
-                if(successAlert) {
-                    successAlert.style.display = 'block';
-                    formLapor.reset();
+            fetch('/api/lapor', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    fasilitas_id: fasilitas,
+                    nama_pelapor: document.getElementById('nama_pelapor').value,
+                    catatan: catatan
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === 'success') {
+                    const successAlert = document.getElementById('success-alert');
+                    if(successAlert) {
+                        successAlert.style.display = 'block';
+                        formLapor.reset();
+                    } else {
+                        alert('Laporan berhasil dikirim. Terima kasih atas partisipasi Anda.');
+                        formLapor.reset();
+                    }
                 } else {
-                    alert('Laporan berhasil dikirim. Terima kasih atas partisipasi Anda.');
-                    formLapor.reset();
+                    alert('Gagal mengirim laporan. Silakan coba lagi.');
                 }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan jaringan.');
+            })
+            .finally(() => {
                 btnSubmit.innerHTML = originalText;
                 btnSubmit.disabled = false;
-            }, 1000);
+            });
         });
     }
 });

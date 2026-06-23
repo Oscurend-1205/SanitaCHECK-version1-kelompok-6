@@ -201,7 +201,7 @@
                         <td class="py-3">
                             <div class="d-flex align-items-center">
                                 <div class="avatar avatar-sm me-2">
-                                    <img class="avatar-img" src="{{ asset('assets/admin/dist/assets/img/avatars/' . $row[12]) }}" alt="user" style="width: 28px; height: 28px; object-fit: cover;">
+                                    <img class="avatar-img" src="https://ui-avatars.com/api/?name={{ urlencode($row[0] ?? 'User') }}&background=random" alt="user" style="width: 28px; height: 28px; object-fit: cover;">
                                 </div>
                                 <div>
                                     <div class="small fw-semibold" style="color: #333; font-size: 0.8rem;">{{ $row[0] }}</div>

@@ -15,14 +15,20 @@
     
     <meta name="theme-color" content="#ffffff">
     <!-- Vendors styles-->
-    <link rel="stylesheet" href="{{ asset('assets/admin/node_modules/simplebar/dist/simplebar.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.css">
     <link rel="stylesheet" href="{{ asset('assets/admin/dist/css/vendors/simplebar.css') }}">
-    <!-- Main styles for this application-->
-    <link href="{{ asset('assets/admin/dist/css/style.css') }}" rel="stylesheet">
-    <script src="{{ asset('assets/admin/dist/js/config.js') }}"></script>
-    <script src="{{ asset('assets/admin/dist/js/color-modes.js') }}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui@4.2.2/dist/css/coreui.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/coreui/coreui-free-bootstrap-admin-template@v4.2.2/dist/js/config.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/coreui/coreui-free-bootstrap-admin-template@v4.2.2/dist/js/color-modes.js"></script>
     
     @stack('styles')
+    <style>
+      @media (min-width: 992px) {
+        .wrapper {
+          padding-left: 256px !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- Sidebar -->
@@ -44,8 +50,8 @@
     </div>
     
     <!-- CoreUI and necessary plugins-->
-    <script src="{{ asset('assets/admin/node_modules/@coreui/coreui/dist/js/coreui.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/node_modules/simplebar/dist/simplebar.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@coreui/coreui@4.2.2/dist/js/coreui.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simplebar@latest/dist/simplebar.min.js"></script>
     <script>
       const header = document.querySelector("header.header");
       document.addEventListener("scroll", () => {

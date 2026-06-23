@@ -14,7 +14,7 @@
             display: flex;
             align-items: center;
             justify-content: flex-start; /* Menggeser card ke kiri */
-            background: url('{{ asset('assets/image/background-1.png') }}') no-repeat center center fixed;
+            background: url('{{ asset('assets/images/login.jpg') }}') no-repeat center center fixed;
             background-size: cover;
             padding-left: 8%; /* Jarak dari sisi kiri layar */
             position: relative;
@@ -32,12 +32,11 @@
         }
         .top-header-brand p {
             margin: 0;
-            color: #ffffff; /* Mengubah warna menjadi putih bersih */
-            font-weight: 700; /* Membuat tulisan lebih tebal */
+            color: #4a4a4a; /* Warna abu-abu gelap agar kontras dengan langit terang */
+            font-weight: 600; /* Sedikit tebal */
             font-size: 15px;
             letter-spacing: 0.5px;
-            /* Memberikan bayangan hitam tipis agar teks terpisah dari background langit */
-            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6), -1px -1px 4px rgba(0, 0, 0, 0.6); 
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8); /* Glow putih tipis untuk keterbacaan */
         }
         .top-header-brand img {
             height: 55px;
@@ -116,11 +115,11 @@
 
     <div class="top-header-brand">
         <p>ITSK RS dr. Soepraoen Kesdam V/BRW Malang</p>
-        <img src="{{ asset('assets/image/logo-itsk.png') }}" alt="Logo ITSK">
+        <img src="{{ asset('assets/images/logoitsk.png') }}" alt="Logo ITSK">
     </div>
 
     <div class="login-card">
-        <img src="{{ asset('assets/image/logo-sanitacheck.png') }}" alt="Logo SanitaCheck" class="logo-sanitacheck">
+        <img src="{{ asset('assets/images/logo-sanita.png') }}" alt="Logo SanitaCheck" class="logo-sanitacheck">
         
         <div>
             <h4 class="welcome-title">Selamat Datang</h4>
