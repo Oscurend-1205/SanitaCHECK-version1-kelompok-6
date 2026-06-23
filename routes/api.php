@@ -176,3 +176,25 @@ Route::post('/inspeksi-sanitasi', function (Request $request) {
         'data' => $inspeksi
     ], 201);
 });
+
+// API Endpoint untuk submit laporan keluhan dari publik
+Route::post('/lapor', function (Request $request) {
+    $validated = $request->validate([
+        'fasilitas_id' => 'required|exists:fasilitas,id',
+        'nama_pelapor' => 'nullable|string|max:255',
+        'catatan' => 'required|string|min:10'
+    ]);
+
+    $laporan = \App\Models\Laporan::create([
+        'fasilitas_id' => $validated['fasilitas_id'],
+        'nama_pelapor' => $validated['nama_pelapor'] ?? 'Anonim',
+        'catatan' => $validated['catatan'],
+        'status' => 'Menunggu'
+    ]);
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Laporan berhasil dikirim',
+        'data' => $laporan
+    ], 201);
+});

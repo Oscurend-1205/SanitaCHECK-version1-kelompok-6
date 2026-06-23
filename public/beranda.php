@@ -30,7 +30,7 @@ $top_5 = array_slice($semua_fasilitas, 0, 5);
 <div class="bg-success text-white py-5 mb-4">
     <div class="container text-center">
         <h1 class="display-5 fw-bold mb-3">SanitaCHECK</h1>
-        <p class="lead mb-4">Sistem Monitoring Sanitasi dan Kebersihan Fasilitas Umum Kampus .</p>
+        <p class="lead mb-4">Sistem Monitoring Sanitasi dan Kebersihan Fasilitas Umum Kampus ITSK RS dr. Soepraoen Kesdam V/BRW Malang.</p>
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <form action="/fasilitas.php" method="GET" class="d-flex bg-white p-2 rounded shadow-sm">
