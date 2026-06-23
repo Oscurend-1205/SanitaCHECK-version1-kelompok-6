@@ -20,7 +20,7 @@ $top_5 = array_slice($semua_fasilitas, 0, 5);
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
@@ -33,7 +33,7 @@ $top_5 = array_slice($semua_fasilitas, 0, 5);
         <p class="lead mb-4">Sistem Monitoring Sanitasi dan Kebersihan Fasilitas Umum Kampus ITSK RS dr. Soepraoen Kesdam V/BRW Malang.</p>
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form action="/fasilitas.php" method="GET" class="d-flex bg-white p-2 rounded shadow-sm">
+                <form action="fasilitas.php" method="GET" class="d-flex bg-white p-2 rounded shadow-sm">
                     <input type="text" name="search" class="form-control border-0 shadow-none" placeholder="Cari nama gedung atau toilet...">
                     <button type="submit" class="btn btn-success px-4">Cari</button>
                 </form>
@@ -89,7 +89,7 @@ $top_5 = array_slice($semua_fasilitas, 0, 5);
             <div class="card shadow-sm">
                 <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
                     <h5 class="mb-0 fw-bold"><i class="bi bi-star me-2 text-warning"></i> Top 5 Fasilitas (Prioritas)</h5>
-                    <a href="/fasilitas.php" class="btn btn-sm btn-outline-success">Lihat Semua</a>
+                    <a href="fasilitas.php" class="btn btn-sm btn-outline-success">Lihat Semua</a>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -134,7 +134,7 @@ $top_5 = array_slice($semua_fasilitas, 0, 5);
                                 <h5 class="card-title mb-0">Perlu Dibersihkan</h5>
                                 <small>4 Fasilitas</small>
                             </div>
-                            <a href="/fasilitas.php?status=perbaikan" class="btn btn-light btn-sm">Lihat</a>
+                            <a href="fasilitas.php?status=perbaikan" class="btn btn-light btn-sm">Lihat</a>
                         </div>
                     </div>
                 </div>
@@ -145,7 +145,7 @@ $top_5 = array_slice($semua_fasilitas, 0, 5);
                                 <h5 class="card-title mb-0">Perlu Perbaikan</h5>
                                 <small>2 Fasilitas</small>
                             </div>
-                            <a href="/fasilitas.php?status=perhatian" class="btn btn-dark btn-sm">Lihat</a>
+                            <a href="fasilitas.php?status=perhatian" class="btn btn-dark btn-sm">Lihat</a>
                         </div>
                     </div>
                 </div>

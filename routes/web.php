@@ -18,11 +18,17 @@ Route::get('/', function () {
         }
         return redirect('/petugas');
     }
-    return redirect()->route('login');
+    // Arahkan pengunjung umum (belum login) ke halaman publik native
+    return redirect('/beranda.php');
 });
 
 Route::get('/beranda', function () {
     return redirect('/beranda.php');
+});
+
+// Fallback untuk guest middleware redirect
+Route::get('/home', function () {
+    return redirect('/');
 });
 
 Auth::routes();

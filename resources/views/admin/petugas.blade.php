@@ -433,17 +433,17 @@
                     </div>
 
                     <div class="d-flex justify-content-between mb-3 border-bottom pb-2 px-1 gap-1" style="border-color: var(--cui-border-color, var(--bs-border-color)) !important;">
-                        @foreach([['Min','18',false],['Sen','19',false],['Sel','20',false],['Rab','21',false],['Kam','22',true],['Jum','23',false],['Sab','24',false]] as $day)
+                        @foreach($weekDays as $day)
                         <div class="text-center flex-fill" style="cursor: pointer;">
-                            <div class="mb-1 extra-small-desc" style="color: {{ $day[2] ? 'var(--cui-success, #1b5e3a)' : 'var(--cui-body-color-secondary)' }}; font-weight: {{ $day[2] ? '700' : '500' }};">{{ $day[0] }}</div>
-                            <div class="fw-bold sanita-day-box {{ $day[2] ? 'sanita-day-active' : '' }}">
-                                {{ $day[1] }}
+                            <div class="mb-1 extra-small-desc" style="color: {{ $day['isToday'] ? 'var(--cui-success, #1b5e3a)' : 'var(--cui-body-color-secondary)' }}; font-weight: {{ $day['isToday'] ? '700' : '500' }};">{{ $day['label'] }}</div>
+                            <div class="fw-bold sanita-day-box {{ $day['isToday'] ? 'sanita-day-active' : '' }}">
+                                {{ $day['date'] }}
                             </div>
                         </div>
                         @endforeach
                     </div>
 
-                    <div class="extra-small-desc text-body fw-medium mb-3 mt-1">Jadwal Kamis, 22 Mei 2025</div>
+                    <div class="extra-small-desc text-body fw-medium mb-3 mt-1">Jadwal {{ $today->translatedFormat('l, d F Y') }}</div>
 
                     <div class="table-responsive schedule-list-box" style="min-height: 250px;">
                         <table class="table table-sm table-borderless table-hover sanita-table align-middle mb-0">

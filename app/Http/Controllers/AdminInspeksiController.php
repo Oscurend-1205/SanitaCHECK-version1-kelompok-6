@@ -30,15 +30,15 @@ class AdminInspeksiController extends Controller
         ]);
 
         Inspeksi::create([
-            'fasilitas_id' => $request->fasilitas_id,
-            'petugas_id' => auth()->id(), // jika admin yang menambah
-            'tanggal_inspeksi' => now(),
-            'kondisi_kebersihan' => $request->kondisi_kebersihan,
-            'ketersediaan_air' => $request->ketersediaan_air,
-            'ketersediaan_sabun' => $request->ketersediaan_sabun,
-            'bau_tidak_sedap' => $request->bau_tidak_sedap,
-            'catatan' => $request->catatan,
-            'status_tindak_lanjut' => 'Menunggu' // Default
+            'fasilitas_id'         => $request->fasilitas_id,
+            'petugas_id'           => auth()->id(),
+            'tanggal_inspeksi'     => now(),
+            'kondisi_kebersihan'   => strtolower($request->kondisi_kebersihan),
+            'ketersediaan_air'     => $request->ketersediaan_air === 'Ada' ? 1 : ($request->ketersediaan_air === 'Tidak Ada' ? 0 : (int)$request->ketersediaan_air),
+            'ketersediaan_sabun'   => $request->ketersediaan_sabun === 'Ada' ? 1 : ($request->ketersediaan_sabun === 'Tidak Ada' ? 0 : (int)$request->ketersediaan_sabun),
+            'bau_tidak_sedap'      => $request->bau_tidak_sedap === 'Ya' ? 1 : ($request->bau_tidak_sedap === 'Tidak' ? 0 : (int)$request->bau_tidak_sedap),
+            'catatan'              => $request->catatan,
+            'status_tindak_lanjut' => 'aman',
         ]);
 
         return redirect()->back()->with('success', 'Inspeksi berhasil ditambahkan.');
@@ -57,12 +57,12 @@ class AdminInspeksiController extends Controller
 
         $inspeksi = Inspeksi::findOrFail($id);
         $inspeksi->update([
-            'fasilitas_id' => $request->fasilitas_id,
-            'kondisi_kebersihan' => $request->kondisi_kebersihan,
-            'ketersediaan_air' => $request->ketersediaan_air,
-            'ketersediaan_sabun' => $request->ketersediaan_sabun,
-            'bau_tidak_sedap' => $request->bau_tidak_sedap,
-            'catatan' => $request->catatan,
+            'fasilitas_id'         => $request->fasilitas_id,
+            'kondisi_kebersihan'   => strtolower($request->kondisi_kebersihan),
+            'ketersediaan_air'     => $request->ketersediaan_air === 'Ada' ? 1 : ($request->ketersediaan_air === 'Tidak Ada' ? 0 : (int)$request->ketersediaan_air),
+            'ketersediaan_sabun'   => $request->ketersediaan_sabun === 'Ada' ? 1 : ($request->ketersediaan_sabun === 'Tidak Ada' ? 0 : (int)$request->ketersediaan_sabun),
+            'bau_tidak_sedap'      => $request->bau_tidak_sedap === 'Ya' ? 1 : ($request->bau_tidak_sedap === 'Tidak' ? 0 : (int)$request->bau_tidak_sedap),
+            'catatan'              => $request->catatan,
         ]);
 
         return redirect()->back()->with('success', 'Data inspeksi berhasil diperbarui.');

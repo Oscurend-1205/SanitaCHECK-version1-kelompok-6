@@ -35,9 +35,15 @@ class PetugasAreaController extends Controller
     {
         $petugasId = Auth::id();
         
-        // Contoh query ke tabel jadwal: 
-        // $fasilitasDitugaskan = Jadwal::with('fasilitas')->where('petugas_id', $petugasId)->get();
-        $fasilitasDitugaskan = collect([]); // Dummy collection sementara
+        // Tampilkan semua fasilitas aktif sebagai jadwal petugas
+        // (karena belum ada tabel jadwal khusus, semua fasilitas aktif perlu diinspeksi)
+        $fasilitasDitugaskan = Fasilitas::where('status_aktif', true)->get()->map(function($f) {
+            // Bungkus dalam object agar view bisa akses $jadwal->fasilitas->nama_fasilitas
+            $obj = new \stdClass();
+            $obj->fasilitas = $f;
+            $obj->fasilitas_id = $f->id;
+            return $obj;
+        });
 
         return view('petugas.jadwal', compact('fasilitasDitugaskan'));
     }

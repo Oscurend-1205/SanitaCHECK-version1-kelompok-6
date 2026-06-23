@@ -30,4 +30,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Relasi: Satu user (petugas) bisa memiliki banyak inspeksi.
+     */
+    public function inspeksis()
+    {
+        return $this->hasMany(Inspeksi::class, 'petugas_id');
+    }
 }
+

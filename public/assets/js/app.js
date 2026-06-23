@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
             btnSubmit.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Mengirim...';
             btnSubmit.disabled = true;
 
-            fetch('/api/lapor', {
+            fetch('api/lapor', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

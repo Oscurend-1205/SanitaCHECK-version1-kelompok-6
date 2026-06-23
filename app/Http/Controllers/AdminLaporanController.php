@@ -73,13 +73,27 @@ class AdminLaporanController extends Controller
             }
         }
 
+        // Data Laporan Keluhan Publik
+        $laporans = \App\Models\Laporan::with('fasilitas')->latest()->get();
+
+        // Top 5 Fasilitas Bermasalah
+        $topFasilitasBermasalah = Fasilitas::withCount(['inspeksis as masalah_count' => function ($query) {
+            $query->whereIn('kondisi_kebersihan', ['Buruk', 'Cukup']);
+        }])->having('masalah_count', '>', 0)->orderBy('masalah_count', 'desc')->limit(5)->get();
+
+        // Top 5 Petugas Teraktif
+        $topPetugasTeraktif = \App\Models\User::where('role', 'petugas')->withCount('inspeksis')->having('inspeksis_count', '>', 0)->orderBy('inspeksis_count', 'desc')->limit(5)->get();
+
         return view('admin.laporan', compact(
             'kpis',
             'trendLabels',
             'trendData',
             'baikP', 'cukupP', 'burukP', 'tindakLanjutP',
             'kondisiBaik', 'kondisiCukup', 'kondisiBuruk', 'tindakLanjut',
-            'rekapFasilitas'
+            'rekapFasilitas',
+            'laporans',
+            'topFasilitasBermasalah',
+            'topPetugasTeraktif'
         ));
     }
 }

@@ -194,21 +194,17 @@
         <div class="card border shadow-sm mb-3" style="border-radius: 12px;">
             <div class="card-body p-3">
                 <h6 class="card-title text-success fw-bold mb-3">Top 5 Fasilitas Bermasalah</h6>
-                @foreach([
-                    ['Tempat Cuci Tangan Belakang', 6, '55%', 'danger'],
-                    ['Toilet Perempuan', 4, '36%', 'danger'],
-                    ['Toilet Lantai 1', 3, '25%', 'warning'],
-                    ['Kantin Sehat', 3, '25%', 'warning'],
-                    ['Toilet Lantai 2', 2, '20%', 'warning'],
-                ] as $i => $item)
+                @forelse($topFasilitasBermasalah as $i => $item)
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <div class="d-flex align-items-center">
                         <span class="text-body-secondary small me-2 fw-bold">{{ $i + 1 }}</span>
-                        <span class="small">{{ $item[0] }}</span>
+                        <span class="small">{{ $item->nama_fasilitas }}</span>
                     </div>
-                    <span class="badge {{ $item[3] === 'warning' ? 'bg-warning text-dark' : 'bg-'.$item[3] }} rounded-pill px-2 py-1" style="font-size: 0.7rem;">{{ $item[1] }}x ({{ $item[2] }})</span>
+                    <span class="badge {{ $item->masalah_count >= 5 ? 'bg-danger' : 'bg-warning text-dark' }} rounded-pill px-2 py-1" style="font-size: 0.7rem;">{{ $item->masalah_count }} Masalah</span>
                 </div>
-                @endforeach
+                @empty
+                <div class="small text-muted">Belum ada fasilitas bermasalah.</div>
+                @endforelse
                 <div class="mt-2 text-end">
                     <button class="btn btn-outline-success btn-sm fw-bold" style="border-radius: 20px; padding: 0.2rem 0.8rem; font-size: 0.75rem;">Lihat Selengkapnya</button>
                 </div>
@@ -217,21 +213,17 @@
         <div class="card border shadow-sm" style="border-radius: 12px;">
             <div class="card-body p-3">
                 <h6 class="card-title text-success fw-bold mb-3">Top 5 Petugas Teraktif</h6>
-                @foreach([
-                    ['Budi Santoso', 18],
-                    ['Siti Aisyah', 16],
-                    ['Andi Wijaya', 14],
-                    ['Rina Martina', 12],
-                    ['Dewi Lestari', 10],
-                ] as $i => $petugas)
+                @forelse($topPetugasTeraktif as $i => $petugas)
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <div class="d-flex align-items-center">
                         <span class="text-body-secondary small me-2 fw-bold">{{ $i + 1 }}</span>
-                        <span class="small">{{ $petugas[0] }}</span>
+                        <span class="small">{{ $petugas->name }}</span>
                     </div>
-                    <span class="badge bg-success rounded-pill px-2 py-1" style="font-size: 0.7rem;">{{ $petugas[1] }} Inspeksi</span>
+                    <span class="badge bg-success rounded-pill px-2 py-1" style="font-size: 0.7rem;">{{ $petugas->inspeksis_count }} Inspeksi</span>
                 </div>
-                @endforeach
+                @empty
+                <div class="small text-muted">Belum ada data petugas teraktif.</div>
+                @endforelse
                 <div class="mt-2 text-end">
                     <button class="btn btn-outline-success btn-sm fw-bold" style="border-radius: 20px; padding: 0.2rem 0.8rem; font-size: 0.75rem;">Lihat Selengkapnya</button>
                 </div>
