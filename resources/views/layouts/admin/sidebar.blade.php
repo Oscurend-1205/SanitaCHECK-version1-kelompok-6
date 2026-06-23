@@ -60,7 +60,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link {{ request()->is('petugas') ? 'active' : '' }}" href="{{ url('/petugas') }}" {!! request()->is('petugas') ? 'style="background-color: rgba(255,255,255,0.15); border-left: 4px solid #fff;"' : '' !!}>
         <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path fill="var(--ci-primary-color, currentcolor)" d="M136.262 250.707a123.635 123.635 0 1 0-82.524 0 178.293 178.293 0 0 0-35.122 36.46 16 16 0 0 0 25.86 18.04A144.3 144.3 0 0 1 93 277.207v186.2a16 16 0 0 0 16 16h4a16 16 0 0 0 16-16v-87.41h10v87.41a16 16 0 0 0 16 16h4a16 16 0 0 0 16-16V277.207a144.3 144.3 0 0 1 48.538 28 16 16 0 0 0 25.86-18.04 178.293 178.293 0 0 0-35.122-36.46zM135 139.635a59.635 59.635 0 1 1-59.635 59.635A59.7 59.7 0 0 1 135 139.635zM375 250.707a123.635 123.635 0 1 0-82.524 0 178.293 178.293 0 0 0-35.122 36.46 16 16 0 0 0 25.86 18.04 144.3 144.3 0 0 1 48.538-28v186.2a16 16 0 0 0 16 16h4a16 16 0 0 0 16-16v-87.41h10v87.41a16 16 0 0 0 16 16h4a16 16 0 0 0 16-16V277.207a144.3 144.3 0 0 1 48.538 28 16 16 0 0 0 25.86-18.04 178.293 178.293 0 0 0-35.122-36.46zM375 139.635a59.635 59.635 0 1 1-59.635 59.635A59.7 59.7 0 0 1 375 139.635z" class="ci-primary" />
         </svg>
@@ -68,16 +68,16 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
-        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-          <path fill="var(--ci-primary-color, currentcolor)" d="M400 464H48V104h192V72H16v424h416V272h-32z" class="ci-primary" />
-          <path fill="var(--ci-primary-color, currentcolor)" d="M304 16v32h137.373L188.687 300.687l22.626 22.626L464 70.627V208h32V16z" class="ci-primary" />
-        </svg>
-        Jadwal Petugas
-      </a>
+        <a class="nav-link {{ request()->is('jadwal-petugas') ? 'active' : '' }}" href="{{ url('/jadwal-petugas') }}" {!! request()->is('jadwal-petugas') ? 'style="background-color: rgba(255,255,255,0.15); border-left: 4px solid #fff;"' : '' !!}>
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path fill="var(--ci-primary-color, currentcolor)" d="M400 464H48V104h192V72H16v424h416V272h-32z" class="ci-primary" />
+                <path fill="var(--ci-primary-color, currentcolor)" d="M304 16v32h137.373L188.687 300.687l22.626 22.626L464 70.627V208h32V16z" class="ci-primary" />
+            </svg>
+            Jadwal Petugas
+        </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link {{ request()->is('rekap-laporan') ? 'active' : '' }}" href="{{ url('/rekap-laporan') }}" {!! request()->is('rekap-laporan') ? 'style="background-color: rgba(255,255,255,0.15); border-left: 4px solid #fff;"' : '' !!}>
         <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path fill="var(--ci-primary-color, currentcolor)" d="M468.916 353.07a243.54 243.54 0 0 0 0-186.459 248 248 0 0 0-2.747-6.354 242.3 242.3 0 0 0-50.059-72.686L404.8 76.257l-11.317 11.314-172.27 172.269 172.63 172.631 10.957 10.953 11.31-11.314a242.2 242.2 0 0 0 49.452-71.358 249 249 0 0 0 3.354-7.682m-64.557-231.12a211.57 211.57 0 0 1 0 275.781L266.468 259.84Z" class="ci-primary" />
           <path fill="var(--ci-primary-color, currentcolor)" d="M105.361 398.32A195.891 195.891 0 0 1 343.42 91.125l23.256-23.255A227.875 227.875 0 0 0 82.733 420.948 228.03 228.03 0 0 0 366.24 452.1l-23.312-23.312c-75.028 43.98-173.271 33.829-237.567-30.468" class="ci-primary" />
@@ -86,7 +86,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link {{ request()->is('tindak-lanjut') ? 'active' : '' }}" href="{{ url('/tindak-lanjut') }}" {!! request()->is('tindak-lanjut') ? 'style="background-color: rgba(255,255,255,0.15); border-left: 4px solid #fff;"' : '' !!}>
         <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path fill="var(--ci-primary-color, currentcolor)" d="m256 461.129-158.337-77.94V168h316.674v215.189zm-126.337-104.5 126.337 62.188 126.337-62.188V200H129.663z" class="ci-primary" />
           <path fill="var(--ci-primary-color, currentcolor)" d="m203.492 334.205-59.553-61.94 23.08-22.186 36.953 38.435 97.432-93.535 22.19 23.08z" class="ci-primary" />
@@ -95,7 +95,7 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link {{ request()->is('riwayat-tindak-lanjut') ? 'active' : '' }}" href="{{ url('/riwayat-tindak-lanjut') }}" {!! request()->is('riwayat-tindak-lanjut') ? 'style="background-color: rgba(255,255,255,0.15); border-left: 4px solid #fff;"' : '' !!}>
         <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path fill="var(--ci-primary-color, currentcolor)" d="M494 198.671a40.54 40.54 0 0 0-32.174-27.592l-115.909-18.837-53.732-104.414a40.7 40.7 0 0 0-72.37 0l-53.732 104.414-115.907 18.837a40.7 40.7 0 0 0-22.364 68.827l82.7 83.368-17.9 116.055a40.672 40.672 0 0 0 58.548 42.538L256 428.977l104.843 52.89a40.69 40.69 0 0 0 58.548-42.538l-17.9-116.055 82.7-83.368A40.54 40.54 0 0 0 494 198.671m-32.53 18.7L367.4 312.2l20.364 132.01a8.671 8.671 0 0 1-12.509 9.088L256 393.136 136.744 453.3a8.671 8.671 0 0 1-12.509-9.088L144.6 312.2l-94.069-94.83a8.7 8.7 0 0 1 4.778-14.706l131.841-21.426 61.119-118.767a8.694 8.694 0 0 1 15.462 0l61.119 118.767 131.841 21.426a8.7 8.7 0 0 1 4.778 14.706Z" class="ci-primary" />
         </svg>
@@ -103,11 +103,19 @@
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
+      <a class="nav-link {{ request()->is('profil') ? 'active' : '' }}" href="{{ url('/profil') }}" {!! request()->is('profil') ? 'style="background-color: rgba(255,255,255,0.15); border-left: 4px solid #fff;"' : '' !!}>
         <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path fill="var(--ci-primary-color, currentcolor)" d="M256 16C123.452 16 16 123.452 16 256s107.452 240 240 240 240-107.452 240-240S388.548 16 256 16m-22 446.849a208.35 208.35 0 0 1-169.667-125.9c-.364-.859-.706-1.724-1.057-2.587L234 429.939Zm0-69.582L50.889 290.76A210 210 0 0 1 48 256q0-9.912.922-19.67L234 339.939Zm0-90L54.819 202.96a206 206 0 0 1 9.514-27.913Q67.1 168.5 70.3 162.191L234 253.934Zm0-86.015L86.914 134.819a209.4 209.4 0 0 1 22.008-25.9q3.72-3.72 7.6-7.228L234 166.027Zm0-87.708-89.648-49.093A206.95 206.95 0 0 1 234 49.151ZM464 256a207.775 207.775 0 0 1-198 207.761V48.239A207.79 207.79 0 0 1 464 256" class="ci-primary" />
         </svg>
         Profil
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link {{ request()->is('pengaturan') ? 'active' : '' }}" href="{{ url('/pengaturan') }}" {!! request()->is('pengaturan') ? 'style="background-color: rgba(255,255,255,0.15); border-left: 4px solid #fff;"' : '' !!}>
+        <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <path fill="var(--ci-primary-color, currentcolor)" d="M262.29 192.31a64 64 0 1 0 57.4 57.4 64.13 64.13 0 0 0-57.4-57.4M416.39 256a154.348 154.348 0 0 1-1.53 20.79l45.21 35.46a10.81 10.81 0 0 1 2.45 13.75l-42.77 74a10.81 10.81 0 0 1-13.14 4.59l-44.9-18.08a16.11 16.11 0 0 0-15.17 1.75A164.48 164.48 0 0 1 325 400.8a15.94 15.94 0 0 0-8.82 12.14l-6.73 47.89a11.08 11.08 0 0 1-10.68 9.17h-85.54a11.11 11.11 0 0 1-10.69-8.87l-6.72-47.82a16.07 16.07 0 0 0-9-12.22 155.3 155.3 0 0 1-21.46-12.57 16 16 0 0 0-15.11-1.71l-44.89 18.07a10.81 10.81 0 0 1-13.14-4.58l-42.77-74a10.8 10.8 0 0 1 2.45-13.75l38.21-30a16.05 16.05 0 0 0 6-14.08c-.36-4.17-.58-8.38-.58-12.5s.21-8.27.58-12.35a16 16 0 0 0-6.07-13.94l-38.19-30A10.81 10.81 0 0 1 49.48 186l42.77-74a10.81 10.81 0 0 1 13.14-4.59l44.9 18.08a16.11 16.11 0 0 0 15.17-1.75A164.48 164.48 0 0 1 187 111.2a15.94 15.94 0 0 0 8.82-12.14l6.73-47.89A11.08 11.08 0 0 1 213.23 42h85.54a11.11 11.11 0 0 1 10.69 8.87l6.72 47.82a16.07 16.07 0 0 0 9 12.22 155.3 155.3 0 0 1 21.46 12.57 16 16 0 0 0 15.11 1.71l44.89-18.07a10.81 10.81 0 0 1 13.14 4.58l42.77 74a10.8 10.8 0 0 1-2.45 13.75l-38.21 30a16.05 16.05 0 0 0-6.05 14.08c.33 4.14.55 8.3.55 12.4Z" class="ci-primary" />
+        </svg>
+        Pengaturan
       </a>
     </li>
   </ul>
