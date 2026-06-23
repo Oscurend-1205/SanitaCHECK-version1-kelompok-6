@@ -117,3 +117,62 @@ Route::get('/fasilitas/{id}/inspeksi', function ($id) {
         ]
     ]);
 });
+
+// API Endpoint untuk mem-filter fasilitas berdasarkan status (Bersih, Perlu Perhatian, Buruk)
+Route::get('/fasilitas/status/{status}', function ($status) {
+    $fasilitas = Fasilitas::with(['inspeksis' => function($q) {
+        $q->latest('tanggal_inspeksi')->limit(1);
+    }])->where('status_aktif', true)->get();
+
+    $filtered = [];
+    foreach ($fasilitas as $item) {
+        $lastInspeksi = $item->inspeksis->first();
+        
+        $itemStatus = 'Belum Diinspeksi';
+        if ($lastInspeksi) {
+            $kebersihan = strtolower($lastInspeksi->kondisi_kebersihan);
+            if ($kebersihan == 'baik' && $lastInspeksi->ketersediaan_air == 'Ada' && $lastInspeksi->ketersediaan_sabun == 'Ada' && $lastInspeksi->bau_tidak_sedap == 'Tidak') {
+                $itemStatus = 'Bersih';
+            } elseif ($kebersihan == 'buruk' || $lastInspeksi->ketersediaan_air == 'Tidak Ada' || $lastInspeksi->bau_tidak_sedap == 'Ya') {
+                $itemStatus = 'Buruk';
+            } else {
+                $itemStatus = 'Perlu Perhatian';
+            }
+        }
+
+        if (strtolower($itemStatus) == strtolower($status)) {
+            $filtered[] = [
+                'id' => $item->id,
+                'nama_fasilitas' => $item->nama_fasilitas,
+                'lokasi' => $item->lokasi,
+                'status_sanitasi' => $itemStatus,
+                'penanggung_jawab' => $item->penanggung_jawab
+            ];
+        }
+    }
+
+    return response()->json(['data' => $filtered]);
+});
+
+// API Endpoint untuk menambahkan inspeksi sanitasi baru
+Route::post('/inspeksi-sanitasi', function (Request $request) {
+    $validated = $request->validate([
+        'fasilitas_id' => 'required|exists:fasilitas,id',
+        'petugas_id' => 'required|exists:users,id',
+        'tanggal_inspeksi' => 'required|date',
+        'kondisi_kebersihan' => 'required|in:baik,cukup,buruk',
+        'ketersediaan_air' => 'required|in:Ada,Tidak Ada',
+        'ketersediaan_sabun' => 'required|in:Ada,Tidak Ada',
+        'bau_tidak_sedap' => 'required|in:Ya,Tidak',
+        'catatan' => 'nullable|string',
+        'status_tindak_lanjut' => 'required|in:aman,perlu dibersihkan,perlu perbaikan'
+    ]);
+
+    $inspeksi = Inspeksi::create($validated);
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Inspeksi berhasil dicatat',
+        'data' => $inspeksi
+    ], 201);
+});
