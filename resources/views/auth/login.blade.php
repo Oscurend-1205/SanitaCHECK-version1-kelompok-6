@@ -13,10 +13,10 @@
             height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* Menggeser card ke kiri */
-            background: url('{{ asset('assets/image/background-1.png') }}') no-repeat center center fixed;
+            justify-content: flex-start; /* Menggeser card ke kiri di desktop */
+            background: url("{{ asset('assets/image/background-1.png') }}") no-repeat center center fixed;
             background-size: cover;
-            padding-left: 8%; /* Jarak dari sisi kiri layar */
+            padding-left: 8%; /* Jarak dari sisi kiri layar di desktop */
             position: relative;
         }
         
@@ -32,11 +32,10 @@
         }
         .top-header-brand p {
             margin: 0;
-            color: #ffffff; /* Mengubah warna menjadi putih bersih */
-            font-weight: 700; /* Membuat tulisan lebih tebal */
+            color: #ffffff; 
+            font-weight: 700; 
             font-size: 15px;
             letter-spacing: 0.5px;
-            /* Memberikan bayangan hitam tipis agar teks terpisah dari background langit */
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6), -1px -1px 4px rgba(0, 0, 0, 0.6); 
         }
         .top-header-brand img {
@@ -49,7 +48,7 @@
             position: relative;
             z-index: 2;
             background: #ffffff;
-            border-radius: 24px; /* Sudut melengkung halus */
+            border-radius: 24px; 
             padding: 24px 35px;
             width: 100%;
             max-width: 400px;
@@ -64,7 +63,7 @@
         }
 
         .welcome-title {
-            color: #2d6a4f; /* Hijau Tua */
+            color: #2d6a4f; 
             font-weight: 700;
             font-size: 20px;
             margin-bottom: 6px;
@@ -82,7 +81,7 @@
             padding: 14px 20px;
             border-radius: 14px;
             border: none;
-            background-color: #e9ecef; /* Background abu-abu */
+            background-color: #e9ecef; 
             color: #333;
             font-size: 14.5px;
         }
@@ -101,7 +100,7 @@
             border-radius: 14px;
             font-weight: 700;
             font-size: 16px;
-            background-color: #2d6a4f; /* Warna Hijau SanitaCheck */
+            background-color: #2d6a4f; 
             border: none;
             color: white;
             transition: background-color 0.2s ease-in-out;
@@ -109,6 +108,38 @@
         }
         .btn-login:hover {
             background-color: #1b4332;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                justify-content: center; /* Membawa card login tepat ke tengah layar */
+                padding-left: 0; /* Menghapus padding kiri desktop */
+                padding: 20px; /* Jarak aman tipis di kanan-kiri agar card tidak menempel ke layar HP */
+            }
+
+            /* Penyesuaian Header Atas agar muat di HP */
+            .top-header-brand {
+                top: 15px;
+                right: 50%;
+                transform: translateX(50%); /* Membuat teks instansi bergeser ke tengah atas */
+                width: 100%;
+                justify-content: center;
+                gap: 8px;
+                padding: 0 15px;
+            }
+            .top-header-brand p {
+                font-size: 11px; /* Mengecilkan teks instansi di HP */
+                text-align: center;
+            }
+            .top-header-brand img {
+                height: 35px; /* Mengecilkan logo instansi di HP */
+            }
+
+            /* Menyesuaikan jarak card agar tidak menabrak header atas */
+            .login-card {
+                margin-top: 60px;
+                padding: 24px 25px; /* Sedikit memperkecil padding dalam card di HP */
+            }
         }
     </style>
 </head>

@@ -61,7 +61,11 @@ class LoginController extends Controller
             return redirect('/admin-dashboard');
         }
 
-        // Jika petugas (bisa diubah nanti tujuannya)
-        return redirect('/petugas');
+        if ($user->role === 'petugas') {
+            return redirect('/area-petugas/dashboard');
+        }
+
+        // Fallback: redirect ke halaman login
+        return redirect('/login');
     }
 }

@@ -10,13 +10,7 @@
 
 <!-- KPI Cards -->
 <div class="row mb-3">
-    @foreach([
-        ['Perlu Tindak Lanjut', '28', 'Fasilitas', 'warning'],
-        ['Perlu Dibersihkan', '20', 'Fasilitas', 'warning'],
-        ['Perlu Perbaikan', '8', 'Fasilitas', 'danger'],
-        ['Selesai', '132', 'Tindak Lanjut', 'success'],
-        ['Total Tindak Lanjut', '160', 'Semua Data', 'primary'],
-    ] as $kpi)
+    @foreach($kpis as $kpi)
     <div class="col-sm-6 col-lg mb-2">
         <div class="card border shadow-sm h-100" style="border-radius: 12px;">
             <div class="card-body p-2 d-flex align-items-center">
@@ -105,64 +99,91 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach([
-                        ['Toilet Lantai 1','Gedung A','Perlu Dibersihkan','Sedang','22 Mei 2025 09:30','24 Mei 2025','Budi Santoso','Dalam Proses','primary'],
-                        ['Kantin Sehat','Gedung B','Perlu Perbaikan','Tinggi','22 Mei 2025 08:45','25 Mei 2025','Siti Aisyah','Belum Dikerjakan','warning'],
-                        ['Ruang Tunggu','Gedung C','Perlu Dibersihkan','Sedang','22 Mei 2025 08:20','23 Mei 2025','Andi Wijaya','Selesai','success'],
-                        ['Toilet Perempuan','Gedung B','Perlu Perbaikan','Tinggi','21 Mei 2025 16:10','24 Mei 2025','Rina Marlina','Belum Dikerjakan','warning'],
-                        ['Tempat Cuci Tangan','Halaman Depan','Perlu Dibersihkan','Rendah','21 Mei 2025 15:30','22 Mei 2025','Dewi Lestari','Dalam Proses','primary'],
-                        ['Toilet Lantai 2','Gedung A','Perlu Perbaikan','Sedang','21 Mei 2025 14:20','25 Mei 2025','Rahmat Hidayat','Belum Dikerjakan','warning'],
-                        ['Ruang Kelas 3A','Gedung D','Perlu Dibersihkan','Rendah','20 Mei 2025 11:05','21 Mei 2025','Maya Putri','Selesai','success'],
-                    ] as $i => $row)
+                    @forelse($dataTindakLanjut as $index => $item)
+                    @php
+                        $prioritas = 'Rendah';
+                        $badgePrioritas = 'success';
+                        $jenis = 'Perlu Dibersihkan';
+                        if ($item->kondisi_kebersihan == 'Buruk') {
+                            $prioritas = 'Tinggi';
+                            $badgePrioritas = 'danger';
+                            $jenis = 'Perlu Perbaikan';
+                        } elseif ($item->kondisi_kebersihan == 'Cukup') {
+                            $prioritas = 'Sedang';
+                            $badgePrioritas = 'warning text-dark';
+                        }
+                        
+                        $statusBadge = 'warning';
+                        if ($item->status_tindak_lanjut == 'Selesai') $statusBadge = 'success';
+                        elseif ($item->status_tindak_lanjut == 'Dalam Proses') $statusBadge = 'primary';
+                    @endphp
                     <tr>
-                        <td class="text-center text-body-secondary small py-2">{{ $i + 1 }}</td>
-                        <td class="small py-2 fw-semibold">{{ $row[0] }}</td>
-                        <td class="text-body-secondary small py-2">{{ $row[1] }}</td>
-                        <td class="text-body-secondary small py-2">{{ $row[2] }}</td>
+                        <td class="text-center text-body-secondary small py-2">{{ $dataTindakLanjut->firstItem() + $index }}</td>
+                        <td class="small py-2 fw-semibold">{{ $item->fasilitas->nama_fasilitas ?? '-' }}</td>
+                        <td class="text-body-secondary small py-2">{{ $item->fasilitas->lokasi ?? '-' }}</td>
+                        <td class="text-body-secondary small py-2">{{ $jenis }}</td>
                         <td class="text-center py-2">
-                            @if($row[3] === 'Tinggi')
-                                <span class="badge bg-danger" style="font-size: 0.7rem;">Tinggi</span>
-                            @elseif($row[3] === 'Sedang')
-                                <span class="badge bg-warning text-dark" style="font-size: 0.7rem;">Sedang</span>
-                            @else
-                                <span class="badge bg-success" style="font-size: 0.7rem;">Rendah</span>
-                            @endif
+                            <span class="badge bg-{{ $badgePrioritas }}" style="font-size: 0.7rem;">{{ $prioritas }}</span>
                         </td>
-                        <td class="text-body-secondary small py-2" style="font-size: 0.75rem;">{{ $row[4] }}</td>
-                        <td class="text-body-secondary small py-2" style="font-size: 0.75rem;">{{ $row[5] }}</td>
-                        <td class="text-body-secondary small py-2">{{ $row[6] }}</td>
+                        <td class="text-body-secondary small py-2" style="font-size: 0.75rem;">{{ \Carbon\Carbon::parse($item->tanggal_inspeksi)->format('d M Y H:i') }}</td>
+                        <td class="text-body-secondary small py-2" style="font-size: 0.75rem;">{{ \Carbon\Carbon::parse($item->tanggal_inspeksi)->addDays(2)->format('d M Y') }}</td>
+                        <td class="text-body-secondary small py-2">{{ $item->petugas->name ?? 'Admin' }}</td>
                         <td class="text-center py-2">
-                            <span class="badge bg-{{ $row[8] }}" style="font-size: 0.7rem; min-width: 90px;">{{ $row[7] }}</span>
+                            <span class="badge bg-{{ $statusBadge }}" style="font-size: 0.7rem; min-width: 90px;">{{ $item->status_tindak_lanjut ?? 'Menunggu' }}</span>
                         </td>
                         <td class="text-center py-2">
                             <div class="d-flex justify-content-center gap-1">
                                 <button class="btn btn-sm btn-outline-primary border-0 p-1" title="Lihat">
                                     <svg style="width: 16px; height: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 112C146.45 112 49.28 182.18 16.37 253.24a16 16 0 0 0 0 13.52C49.28 337.82 146.45 408 256 408s206.72-70.18 239.63-141.24a16 16 0 0 0 0-13.52C462.72 182.18 365.55 112 256 112m0 256a112 112 0 1 1 112-112 112.126 112.126 0 0 1-112 112"/></svg>
                                 </button>
-                                <button class="btn btn-sm btn-outline-warning border-0 p-1" title="Edit">
+                                <button type="button" class="btn btn-sm btn-outline-warning border-0 p-1" data-coreui-toggle="modal" data-coreui-target="#updateStatusModal{{ $item->id }}" title="Edit Status">
                                     <svg style="width: 16px; height: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M410.262 80.912l-29.5-29.5a55.154 55.154 0 0 0-77.95 0L68.25 285.974a24.006 24.006 0 0 0-7.029 16.97L48 416l113.056-13.221a24.006 24.006 0 0 0 16.97-7.029L410.262 158.812a55.154 55.154 0 0 0 0-77.9M162.971 371.029L112 368l3.029-50.971L316.941 115.088 364.912 163.059Z"/></svg>
-                                </button>
-                                <button class="btn btn-sm btn-outline-success border-0 p-1" title="Selesai">
-                                    <svg style="width: 16px; height: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48Zm108.25 138.29-134.4 160a16 16 0 0 1-23.35 1.14l-80-80a16 16 0 0 1 22.62-22.62l67.24 67.24 123.36-146.85a16 16 0 0 1 24.53 21.09Z"/></svg>
                                 </button>
                             </div>
                         </td>
                     </tr>
-                    @endforeach
+                    
+                    <!-- Modal Update Status -->
+                    <div class="modal fade" id="updateStatusModal{{ $item->id }}" tabindex="-1" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);">
+                          <div class="modal-header border-bottom-0 pb-0">
+                            <h5 class="modal-title text-success fw-bold">Update Status</h5>
+                            <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <form action="{{ route('tindak-lanjut.update', $item->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="modal-body">
+                                <p class="small mb-3">Tindak Lanjut untuk: <strong>{{ $item->fasilitas->nama_fasilitas ?? '-' }}</strong></p>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-success mb-1">Status</label>
+                                    <select name="status_tindak_lanjut" class="form-select form-select-sm" required style="border-radius: 6px;">
+                                        <option value="Menunggu" {{ $item->status_tindak_lanjut == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
+                                        <option value="Dalam Proses" {{ $item->status_tindak_lanjut == 'Dalam Proses' ? 'selected' : '' }}>Dalam Proses</option>
+                                        <option value="Selesai" {{ $item->status_tindak_lanjut == 'Selesai' ? 'selected' : '' }}>Selesai</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer border-top-0 pt-0">
+                                <button type="button" class="btn btn-outline-secondary btn-sm fw-bold" data-coreui-dismiss="modal">Batal</button>
+                                <button type="submit" class="btn btn-success text-white btn-sm fw-bold">Simpan</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    @empty
+                    <tr><td colspan="10" class="text-center py-4">Belum ada data tindak lanjut.</td></tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
         <div class="d-flex justify-content-between align-items-center mt-3">
-            <div class="text-body-secondary" style="font-size: 0.75rem;">Menampilkan 1 sampai 7 dari 28 data</div>
-            <ul class="pagination pagination-sm mb-0 shadow-sm">
-                <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
-                <li class="page-item active"><a class="page-link bg-success border-success" href="#">1</a></li>
-                <li class="page-item"><a class="page-link text-success" href="#">2</a></li>
-                <li class="page-item"><a class="page-link text-success" href="#">3</a></li>
-                <li class="page-item"><a class="page-link text-success" href="#">4</a></li>
-                <li class="page-item"><a class="page-link text-success" href="#">5</a></li>
-                <li class="page-item"><a class="page-link text-success" href="#">&raquo;</a></li>
-            </ul>
+            <div class="text-body-secondary" style="font-size: 0.75rem;">Menampilkan {{ $dataTindakLanjut->firstItem() ?? 0 }} sampai {{ $dataTindakLanjut->lastItem() ?? 0 }} dari {{ $dataTindakLanjut->total() }} data</div>
+            <div class="mb-0 shadow-sm custom-pagination">
+                {{ $dataTindakLanjut->links('pagination::bootstrap-5') }}
+            </div>
         </div>
     </div>
 </div>
@@ -236,10 +257,9 @@
                 </div>
                 <div class="mt-3">
                     @foreach([
-                        ['Selesai', 132, '82.5%', 'success'],
-                        ['Dalam Proses', 16, '10%', 'primary'],
-                        ['Belum Dikerjakan', 8, '5%', 'warning'],
-                        ['Terlambat', 4, '2.5%', 'danger'],
+                        ['Selesai', $selesai, $selesaiP.'%', 'success'],
+                        ['Dalam Proses', $dalamProses, $dalamProsesP.'%', 'primary'],
+                        ['Belum Dikerjakan / Menunggu', $belumDikerjakan, $belumDikerjakanP.'%', 'warning'],
                     ] as $item)
                     <div class="d-flex justify-content-between align-items-center mb-1">
                         <div class="d-flex align-items-center">
@@ -270,8 +290,8 @@ document.addEventListener("DOMContentLoaded", function() {
     new Chart(document.getElementById('summaryDoughnut').getContext('2d'), {
         type: 'doughnut',
         data: {
-            labels: ['Selesai', 'Dalam Proses', 'Belum Dikerjakan', 'Terlambat'],
-            datasets: [{ data: [132, 16, 8, 4], backgroundColor: ['#28a745', '#0d6efd', '#ffc107', '#dc3545'], borderWidth: 0 }]
+            labels: ['Selesai', 'Dalam Proses', 'Belum Dikerjakan / Menunggu'],
+            datasets: [{ data: [{{ $selesai }}, {{ $dalamProses }}, {{ $belumDikerjakan }}], backgroundColor: ['#28a745', '#0d6efd', '#ffc107'], borderWidth: 0 }]
         },
         options: {
             responsive: true, maintainAspectRatio: false, cutout: '70%',
@@ -285,7 +305,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 ctx.font = "bold 2em sans-serif";
                 ctx.textBaseline = "middle";
                 ctx.fillStyle = colors.textColor;
-                const text = "28", textX = Math.round((chart.chartArea.left + chart.chartArea.right - ctx.measureText(text).width) / 2), textY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
+                const text = "{{ $total }}", textX = Math.round((chart.chartArea.left + chart.chartArea.right - ctx.measureText(text).width) / 2), textY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
                 ctx.fillText(text, textX, textY);
                 ctx.save();
             }
