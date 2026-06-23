@@ -10,6 +10,24 @@
     </div>
 </div>
 
+@if(session('success'))
+<div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert" style="border-radius: 8px;">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if($errors->any())
+<div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert" style="border-radius: 8px;">
+    <ul class="mb-0">
+        @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+    <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
 <div class="card mb-2 border shadow-sm" style="border-radius: 10px;">
     <div class="card-body p-2">
         <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
@@ -23,8 +41,8 @@
                     </div>
                     <div>
                         <div class="text-success fw-bold lh-sm small">Total Fasilitas</div>
-                        <div class="fw-bold text-success" style="font-size: 1.25rem; line-height: 1;">25</div>
-                        <div class="text-body-secondary extra-small">Semua fasilitas aktif</div>
+                        <div class="fw-bold text-success" style="font-size: 1.25rem; line-height: 1;">{{ $totalFasilitas }}</div>
+                        <div class="text-body-secondary extra-small">Semua fasilitas</div>
                     </div>
                 </div>
                 
@@ -36,7 +54,7 @@
                     </div>
                     <div>
                         <div class="text-success fw-bold lh-sm small">Aktif</div>
-                        <div class="fw-bold text-success" style="font-size: 1.25rem; line-height: 1;">23</div>
+                        <div class="fw-bold text-success" style="font-size: 1.25rem; line-height: 1;">{{ $aktifFasilitas }}</div>
                         <div class="text-body-secondary extra-small">Fasilitas Aktif</div>
                     </div>
                 </div>
@@ -49,15 +67,15 @@
                     </div>
                     <div>
                         <div class="text-success fw-bold lh-sm small">Tidak Aktif</div>
-                        <div class="fw-bold text-success" style="font-size: 1.25rem; line-height: 1;">2</div>
+                        <div class="fw-bold text-success" style="font-size: 1.25rem; line-height: 1;">{{ $tidakAktifFasilitas }}</div>
                         <div class="text-body-secondary extra-small">Fasilitas Tidak Aktif</div>
                     </div>
                 </div>
             </div>
             
             <div class="ms-md-auto align-self-center">
-                <button class="btn btn-success text-white fw-bold shadow-sm py-1d5 px-3" style="border-radius: 6px; background-color: #1b5e3a; border-color: #1b5e3a; font-size: 0.8rem;">
-                    + Tambah Jadwal
+                <button type="button" class="btn btn-success text-white fw-bold shadow-sm py-1d5 px-3" data-coreui-toggle="modal" data-coreui-target="#addFasilitasModal" style="border-radius: 6px; background-color: #1b5e3a; border-color: #1b5e3a; font-size: 0.8rem;">
+                    + Tambah Fasilitas / Jadwal
                 </button>
             </div>
         </div>
@@ -122,7 +140,87 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($fasilitas as $i => $item)
+                    @forelse($fasilitas as $index => $item)
+                    <tr>
+                        <td class="text-center py-2">{{ $fasilitas->firstItem() + $index }}</td>
+                        <td class="py-2 fw-semibold">{{ $item->nama_fasilitas }}</td>
+                        <td class="py-2 text-capitalize">{{ $item->jenis_fasilitas }}</td>
+                        <td class="py-2">{{ $item->lokasi }}</td>
+                        <td class="py-2">{{ $item->penanggung_jawab }}</td>
+                        <td class="text-center py-2">
+                            @if($item->status_aktif)
+                                <span class="badge bg-success">Aktif</span>
+                            @else
+                                <span class="badge bg-warning text-dark">Tidak Aktif</span>
+                            @endif
+                        </td>
+                        <td class="text-center py-2">
+                            <div class="d-flex justify-content-center gap-1">
+                                <button type="button" class="btn btn-sm btn-outline-primary border-0 p-1" data-coreui-toggle="modal" data-coreui-target="#editFasilitasModal{{ $item->id }}" title="Edit">
+                                    <svg style="width: 16px; height: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M490.3 40.4C512.2 62.27 512.2 97.73 490.3 119.6L460.3 149.7L362.3 51.72L392.4 21.66C414.3-.2135 449.7-.2135 471.6 21.66L490.3 40.4zM172.4 241.7L339.7 74.34L437.7 172.3L270.3 339.6C264.2 345.8 256.7 350.4 248.4 353.2L159.6 382.8C150.1 385.6 141.5 383.4 135 376.1C128.6 370.5 126.4 361 129.2 352.4L158.8 263.6C161.6 255.3 166.2 247.8 172.4 241.7zM96 64C42.98 64 0 106.1 0 160V416C0 469 42.98 512 96 512H352C405 512 448 469 448 416V288C448 270.3 433.7 256 416 256C398.3 256 384 270.3 384 288V416C384 433.7 369.7 448 352 448H96C78.33 448 64 433.7 64 416V160C64 142.3 78.33 128 96 128H224C241.7 128 256 113.7 256 96C256 78.33 241.7 64 224 64H96z"/></svg>
+                                </button>
+                                <form action="{{ route('fasilitas.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-outline-danger border-0 p-1" title="Hapus">
+                                        <svg style="width: 16px; height: 16px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320H112zm280 0v32h24a24 24 0 0 0 0-48H160a24 24 0 0 0 0 48h24v-32H80v-32h352v32z"/></svg>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <!-- Modal Edit Fasilitas -->
+                    <div class="modal fade" id="editFasilitasModal{{ $item->id }}" tabindex="-1" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);">
+                          <div class="modal-header border-bottom-0 pb-0">
+                            <h5 class="modal-title text-success fw-bold" style="color: #1b5e3a !important;">Edit Fasilitas</h5>
+                            <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <form action="{{ route('fasilitas.update', $item->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="modal-body text-start">
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-success mb-1">Nama Fasilitas</label>
+                                    <input type="text" name="nama_fasilitas" class="form-control form-control-sm bg-adaptive-input" value="{{ $item->nama_fasilitas }}" required style="border-radius: 6px; padding: 0.4rem 0.75rem;">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-success mb-1">Jenis Fasilitas</label>
+                                    <select name="jenis_fasilitas" class="form-select form-select-sm bg-adaptive-input" required style="border-radius: 6px; padding: 0.4rem 2rem 0.4rem 0.75rem;">
+                                        <option value="toilet" {{ $item->jenis_fasilitas == 'toilet' ? 'selected' : '' }}>Toilet</option>
+                                        <option value="kantin" {{ $item->jenis_fasilitas == 'kantin' ? 'selected' : '' }}>Kantin</option>
+                                        <option value="ruang tunggu" {{ $item->jenis_fasilitas == 'ruang tunggu' ? 'selected' : '' }}>Ruang Tunggu</option>
+                                        <option value="tempat cuci tangan" {{ $item->jenis_fasilitas == 'tempat cuci tangan' ? 'selected' : '' }}>Tempat Cuci Tangan</option>
+                                        <option value="ruang kelas" {{ $item->jenis_fasilitas == 'ruang kelas' ? 'selected' : '' }}>Ruang Kelas</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-success mb-1">Lokasi</label>
+                                    <input type="text" name="lokasi" class="form-control form-control-sm bg-adaptive-input" value="{{ $item->lokasi }}" required style="border-radius: 6px; padding: 0.4rem 0.75rem;">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-success mb-1">Penanggung Jawab</label>
+                                    <input type="text" name="penanggung_jawab" class="form-control form-control-sm bg-adaptive-input" value="{{ $item->penanggung_jawab }}" required style="border-radius: 6px; padding: 0.4rem 0.75rem;">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-success mb-1">Status</label>
+                                    <select name="status_aktif" class="form-select form-select-sm bg-adaptive-input" required style="border-radius: 6px; padding: 0.4rem 2rem 0.4rem 0.75rem;">
+                                        <option value="1" {{ $item->status_aktif ? 'selected' : '' }}>Aktif</option>
+                                        <option value="0" {{ !$item->status_aktif ? 'selected' : '' }}>Tidak Aktif</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer border-top-0 pt-0">
+                                <button type="button" class="btn btn-outline-secondary btn-sm fw-bold" data-coreui-dismiss="modal" style="border-radius: 6px; padding: 0.4rem 1rem;">Batal</button>
+                                <button type="submit" class="btn btn-success text-white btn-sm fw-bold shadow-sm" style="border-radius: 6px; background-color: #1b5e3a; border-color: #1b5e3a; padding: 0.4rem 1rem;">Simpan Perubahan</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    @empty
                     <tr>
                         <td class="text-center text-body-secondary small py-2">{{ $i + 1 }}</td>
                         <td class="small py-2 fw-semibold">{{ $item->nama_fasilitas }}</td>
@@ -143,14 +241,6 @@
                             </div>
                         </td>
                     </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7" class="text-center py-4">
-                            <div class="d-flex flex-column align-items-center justify-content-center py-3">
-                                <p class="text-body-secondary mb-0" style="font-size: 0.85rem;">Belum ada data fasilitas yang ditambahkan</p>
-                            </div>
-                        </td>
-                    </tr>
                     @endforelse
                 </tbody>
             </table>
@@ -159,13 +249,70 @@
 </div>
 
 <div class="d-flex justify-content-between align-items-center mt-2">
-    <div class="text-body-secondary" style="font-size: 0.7rem;">Menampilkan 0 sampai 0 dari 0 Data</div>
-    <ul class="pagination pagination-sm mb-0 shadow-sm">
-        <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
-        <li class="page-item active"><a class="page-link bg-success border-success" href="#">1</a></li>
-        <li class="page-item"><a class="page-link text-success" href="#">2</a></li>
-        <li class="page-item"><a class="page-link text-success" href="#">&raquo;</a></li>
-    </ul>
+    <div class="text-body-secondary" style="font-size: 0.7rem;">Menampilkan {{ $fasilitas->firstItem() ?? 0 }} sampai {{ $fasilitas->lastItem() ?? 0 }} dari {{ $fasilitas->total() }} Data</div>
+    <div class="mb-0 shadow-sm custom-pagination">
+        {{ $fasilitas->links('pagination::bootstrap-5') }}
+    </div>
+</div>
+
+<style>
+    .custom-pagination .pagination {
+        margin-bottom: 0;
+        --bs-pagination-padding-x: 0.5rem;
+        --bs-pagination-padding-y: 0.25rem;
+        --bs-pagination-font-size: 0.875rem;
+    }
+</style>
+
+<!-- Modal Tambah Fasilitas / Jadwal -->
+<div class="modal fade" id="addFasilitasModal" tabindex="-1" aria-labelledby="addFasilitasModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);">
+      <div class="modal-header border-bottom-0 pb-0">
+        <h5 class="modal-title text-success fw-bold" id="addFasilitasModalLabel" style="color: #1b5e3a !important;">Tambah Fasilitas</h5>
+        <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formTambahFasilitas" action="{{ route('fasilitas.store') }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label class="form-label small fw-bold text-success mb-1">Nama Fasilitas</label>
+                <input type="text" name="nama_fasilitas" class="form-control form-control-sm bg-adaptive-input" placeholder="Contoh: Toilet Lantai 1" required style="border-radius: 6px; padding: 0.4rem 0.75rem;">
+            </div>
+            <div class="mb-3">
+                <label class="form-label small fw-bold text-success mb-1">Jenis Fasilitas</label>
+                <select name="jenis_fasilitas" class="form-select form-select-sm bg-adaptive-input" required style="border-radius: 6px; padding: 0.4rem 2rem 0.4rem 0.75rem;">
+                    <option selected disabled value="">Pilih Jenis</option>
+                    <option value="toilet">Toilet</option>
+                    <option value="kantin">Kantin</option>
+                    <option value="ruang tunggu">Ruang Tunggu</option>
+                    <option value="tempat cuci tangan">Tempat Cuci Tangan</option>
+                    <option value="ruang kelas">Ruang Kelas</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label small fw-bold text-success mb-1">Lokasi</label>
+                <input type="text" name="lokasi" class="form-control form-control-sm bg-adaptive-input" placeholder="Contoh: Gedung A" required style="border-radius: 6px; padding: 0.4rem 0.75rem;">
+            </div>
+            <div class="mb-3">
+                <label class="form-label small fw-bold text-success mb-1">Penanggung Jawab</label>
+                <input type="text" name="penanggung_jawab" class="form-control form-control-sm bg-adaptive-input" placeholder="Nama Petugas" required style="border-radius: 6px; padding: 0.4rem 0.75rem;">
+            </div>
+            <div class="mb-3">
+                <label class="form-label small fw-bold text-success mb-1">Status</label>
+                <select name="status_aktif" class="form-select form-select-sm bg-adaptive-input" required style="border-radius: 6px; padding: 0.4rem 2rem 0.4rem 0.75rem;">
+                    <option value="1" selected>Aktif</option>
+                    <option value="0">Tidak Aktif</option>
+                </select>
+            </div>
+      </div>
+      <div class="modal-footer border-top-0 pt-0">
+        <button type="button" class="btn btn-outline-secondary btn-sm fw-bold" data-coreui-dismiss="modal" style="border-radius: 6px; padding: 0.4rem 1rem;">Batal</button>
+        <button type="submit" class="btn btn-success text-white btn-sm fw-bold shadow-sm" style="border-radius: 6px; background-color: #1b5e3a; border-color: #1b5e3a; padding: 0.4rem 1rem;">Simpan Data</button>
+      </div>
+        </form>
+    </div>
+  </div>
 </div>
 
 <style>

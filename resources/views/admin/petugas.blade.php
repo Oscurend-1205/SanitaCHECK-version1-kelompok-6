@@ -181,6 +181,24 @@
         </div>
     </div>
 
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert" style="border-radius: 8px;">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
+    @if($errors->any())
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert" style="border-radius: 8px;">
+        <ul class="mb-0">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
+
     <div class="row g-2 mb-3">
         <div class="col-6 col-sm-6 col-lg-3">
             <div class="card sanita-card shadow-sm h-100">
@@ -192,7 +210,7 @@
                     </div>
                     <div>
                         <div class="text-body-secondary fw-semibold small lh-sm" style="font-size: 0.75rem;">Total Petugas</div>
-                        <div class="fw-bold fs-5 text-body lh-1 mt-1">12</div>
+                        <div class="fw-bold fs-5 text-body lh-1 mt-1">{{ $totalPetugas }}</div>
                         <div class="extra-small-desc mt-1">Semua petugas terdaftar</div>
                     </div>
                 </div>
@@ -208,7 +226,7 @@
                     </div>
                     <div>
                         <div class="text-body-secondary fw-semibold small lh-sm" style="font-size: 0.75rem;">Petugas Aktif</div>
-                        <div class="fw-bold fs-5 text-body lh-1 mt-1">10</div>
+                        <div class="fw-bold fs-5 text-body lh-1 mt-1">{{ $aktifPetugas }}</div>
                         <div class="extra-small-desc mt-1">Sedang bertugas</div>
                     </div>
                 </div>
@@ -225,7 +243,7 @@
                     </div>
                     <div>
                         <div class="text-body-secondary fw-semibold small lh-sm" style="font-size: 0.75rem;">Jadwal Hari Ini</div>
-                        <div class="fw-bold fs-5 text-body lh-1 mt-1">8</div>
+                        <div class="fw-bold fs-5 text-body lh-1 mt-1">{{ $jadwalHariIni }}</div>
                         <div class="extra-small-desc mt-1">Petugas dijadwalkan</div>
                     </div>
                 </div>
@@ -242,7 +260,7 @@
                     </div>
                     <div>
                         <div class="text-body-secondary fw-semibold small lh-sm" style="font-size: 0.75rem;">Inspeksi Hari Ini</div>
-                        <div class="fw-bold fs-5 text-body lh-1 mt-1">6</div>
+                        <div class="fw-bold fs-5 text-body lh-1 mt-1">{{ $inspeksiHariIni }}</div>
                         <div class="extra-small-desc mt-1">Inspeksi dilakukan</div>
                     </div>
                 </div>
@@ -256,7 +274,7 @@
                 <div class="card-body p-3">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h6 class="fw-bold mb-0 text-body" style="font-size: 0.9rem;">Data Seluruh Petugas</h6>
-                        <button class="btn btn-sm sanita-btn-green fw-semibold shadow-sm px-3 py-1">
+                        <button type="button" class="btn btn-sm sanita-btn-green fw-semibold shadow-sm px-3 py-1" data-coreui-toggle="modal" data-coreui-target="#addPetugasModal">
                             + Tambah Petugas
                         </button>
                     </div>
@@ -294,30 +312,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                    $dataPetugas = [
-                                        ['Budi Santoso', 'budi.santoso@sanitacheck.id', '0812-3456-7890', 'Aktif', '8.jpg'],
-                                        ['Siti Aisyah', 'siti.aisyah@sanitacheck.id', '0813-2345-6789', 'Aktif', '9.jpg'],
-                                        ['Andi Wijaya', 'andi.wijaya@sanitacheck.id', '0821-1111-2222', 'Aktif', '1.jpg'],
-                                        ['Rina Marlina', 'rina.marlina@sanitacheck.id', '0812-9876-5432', 'Aktif', '2.jpg'],
-                                        ['Rahmat Hidayat', 'rahmat.hidayat@sanitacheck.id', '0813-7654-3210', 'Nonaktif', '4.jpg'],
-                                        ['Dewi Lestari', 'dewi.lestari@sanitacheck.id', '0822-4567-8901', 'Aktif', '3.jpg'],
-                                        ['Fajar Nugroho', 'fajar.nugroho@sanitacheck.id', '0812-6543-2109', 'Aktif', '6.jpg']
-                                    ];
-                                @endphp
-                                @foreach($dataPetugas as $i => $petugas)
+                                @forelse($petugas as $index => $item)
                                 <tr>
-                                    <td class="text-center py-2 px-1">{{ $i + 1 }}</td>
+                                    <td class="text-center py-2 px-1">{{ $petugas->firstItem() + $index }}</td>
                                     <td class="py-2">
                                         <div class="d-flex align-items-center">
-                                            <img src="https://ui-avatars.com/api/?name={{ urlencode($petugas[0]) }}&background=random" alt="user" class="rounded-circle sanita-avatar me-2 border shadow-sm">
-                                            <span class="fw-semibold text-body lh-sm small">{{ $petugas[0] }}</span>
+                                            <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center me-2 shadow-sm" style="width: 28px; height: 28px; font-size: 0.75rem;">
+                                                {{ strtoupper(substr($item->nama_petugas, 0, 1)) }}
+                                            </div>
+                                            <span class="fw-semibold text-body lh-sm small">{{ $item->nama_petugas }}</span>
                                         </div>
                                     </td>
-                                    <td class="py-2 small text-body-secondary">{{ $petugas[1] }}</td>
-                                    <td class="py-2 small text-body-secondary">{{ $petugas[2] }}</td>
+                                    <td class="py-2 small text-body-secondary">{{ $item->email }}</td>
+                                    <td class="py-2 small text-body-secondary">{{ $item->no_hp }}</td>
                                     <td class="text-center py-2 px-1">
-                                        @if($petugas[3] === 'Aktif')
+                                        @if($item->status_aktif)
                                             <span class="sanita-badge bg-success-subtle text-success">Aktif</span>
                                         @else
                                             <span class="sanita-badge bg-secondary-subtle text-secondary">Nonaktif</span>
@@ -325,27 +334,78 @@
                                     </td>
                                     <td class="text-center py-2 px-1">
                                         <div class="d-flex justify-content-center gap-1">
-                                            <button class="btn btn-sm p-1d5 border-0 bg-transparent btn-outline-secondary" title="Edit">
+                                            <button type="button" class="btn btn-sm p-1d5 border-0 bg-transparent btn-outline-secondary" data-coreui-toggle="modal" data-coreui-target="#editPetugasModal{{ $item->id }}" title="Edit">
                                                 <svg class="adaptive-icon" style="width: 14px; height: 14px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M410.262 80.912l-29.5-29.5a55.154 55.154 0 0 0-77.95 0L68.25 285.974a24.006 24.006 0 0 0-7.029 16.97L48 416l113.056-13.221a24.006 24.006 0 0 0 16.97-7.029L410.262 158.812a55.154 55.154 0 0 0 0-77.9zM162.971 371.029L112 368l3.029-50.971L316.941 115.088 364.912 163.059Z"/></svg>
                                             </button>
-                                            <button class="btn btn-sm p-1d5 border-0 bg-transparent btn-outline-danger" title="Hapus">
-                                                <svg style="width: 14px; height: 14px; color: var(--bs-danger);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320H112zm280 0v32h24a24 24 0 0 0 0-48H160a24 24 0 0 0 0 48h24v-32H80v-32h352v32z"/></svg>
-                                            </button>
+                                            <form action="{{ route('petugas.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data ini?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm p-1d5 border-0 bg-transparent btn-outline-danger" title="Hapus">
+                                                    <svg style="width: 14px; height: 14px; color: var(--bs-danger);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M112 112l20 320c.95 18.49 14.4 32 32 32h184c17.67 0 30.87-13.51 32-32l20-320H112zm280 0v32h24a24 24 0 0 0 0-48H160a24 24 0 0 0 0 48h24v-32H80v-32h352v32z"/></svg>
+                                                </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
-                                @endforeach
+                                
+                                <!-- Modal Edit Petugas -->
+                                <div class="modal fade" id="editPetugasModal{{ $item->id }}" tabindex="-1" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);">
+                                      <div class="modal-header border-bottom-0 pb-0">
+                                        <h5 class="modal-title sanita-text-green fw-bold">Edit Petugas</h5>
+                                        <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <form action="{{ route('petugas.update', $item->id) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="modal-body text-start">
+                                            <div class="mb-3">
+                                                <label class="form-label small fw-bold sanita-text-green mb-1">Nama Petugas</label>
+                                                <input type="text" name="nama_petugas" class="form-control form-control-sm bg-adaptive-input" value="{{ $item->nama_petugas }}" required style="border-radius: 6px; padding: 0.4rem 0.75rem;">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label small fw-bold sanita-text-green mb-1">Email</label>
+                                                <input type="email" name="email" class="form-control form-control-sm bg-adaptive-input" value="{{ $item->email }}" required style="border-radius: 6px; padding: 0.4rem 0.75rem;">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label small fw-bold sanita-text-green mb-1">No. HP</label>
+                                                <input type="text" name="no_hp" class="form-control form-control-sm bg-adaptive-input" value="{{ $item->no_hp }}" required style="border-radius: 6px; padding: 0.4rem 0.75rem;">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label small fw-bold sanita-text-green mb-1">Status</label>
+                                                <select name="status_aktif" class="form-select form-select-sm bg-adaptive-input" required style="border-radius: 6px; padding: 0.4rem 2rem 0.4rem 0.75rem;">
+                                                    <option value="1" {{ $item->status_aktif ? 'selected' : '' }}>Aktif</option>
+                                                    <option value="0" {{ !$item->status_aktif ? 'selected' : '' }}>Nonaktif</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer border-top-0 pt-0">
+                                            <button type="button" class="btn btn-outline-secondary btn-sm fw-bold" data-coreui-dismiss="modal" style="border-radius: 6px; padding: 0.4rem 1rem;">Batal</button>
+                                            <button type="submit" class="btn sanita-btn-green btn-sm fw-bold shadow-sm" style="padding: 0.4rem 1rem;">Simpan Perubahan</button>
+                                        </div>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                                @empty
+                                <tr>
+                                    <td colspan="6" class="text-center py-4">
+                                        <div class="d-flex flex-column align-items-center justify-content-center py-3">
+                                            <p class="text-body-secondary mb-0" style="font-size: 0.85rem;">Belum ada data petugas</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center mt-3 border-top pt-2 pagination-box" style="border-color: var(--cui-border-color, var(--bs-border-color)) !important;">
-                        <div class="extra-small-desc">Menampilkan 1-7 dari 12 data</div>
-                        <ul class="pagination pagination-sm sanita-pagination mb-0 shadow-sm">
-                            <li class="page-item disabled"><a class="page-link shadow-sm" href="#">&laquo;</a></li>
-                            <li class="page-item active"><a class="page-link shadow-sm" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link shadow-sm" href="#">&raquo;</a></li>
-                        </ul>
+                        <div class="extra-small-desc">Menampilkan {{ $petugas->firstItem() ?? 0 }}-{{ $petugas->lastItem() ?? 0 }} dari {{ $petugas->total() }} data</div>
+                        <div class="mb-0 shadow-sm custom-pagination">
+                            {{ $petugas->links('pagination::bootstrap-5') }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -395,19 +455,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                    $jadwalDiniHari = [
-                                        ['Budi Santoso', 'Toilet Lantai 2', '08:00', 'Rutin', 'Selesai', 'bg-success-subtle', 'text-success', '8.jpg'],
-                                        ['Siti Aisyah', 'Kantin Sehat', '09:30', 'Rutin', 'Proses', 'bg-primary-subtle', 'text-primary', '9.jpg'],
-                                        ['Andi Wijaya', 'Gedung C', '11:00', 'Rutin', 'Menunggu', 'bg-warning-subtle', 'text-warning', '1.jpg'],
-                                        ['Rina Marlina', 'Halaman Depan', '13:00', 'Rutin', 'Menunggu', 'bg-warning-subtle', 'text-warning', '2.jpg'],
-                                    ];
-                                @endphp
-                                @foreach($jadwalDiniHari as $schedule)
+                                @forelse($schedules as $schedule)
                                 <tr>
                                     <td class="py-1d5 pe-2" width="40%">
                                         <div class="d-flex align-items-center">
-                                            <img src="https://ui-avatars.com/api/?name={{ urlencode($schedule[0]) }}&background=random" alt="user" class="rounded-circle sanita-avatar me-2 border shadow-sm" style="width: 24px; height: 24px;">
+                                            <div class="rounded-circle bg-success text-white d-flex align-items-center justify-content-center me-2 shadow-sm" style="width: 24px; height: 24px; font-size: 0.65rem;">
+                                                {{ strtoupper(substr($schedule[0], 0, 1)) }}
+                                            </div>
                                             <div class="lh-sm">
                                                 <span class="fw-semibold text-body small">{{ $schedule[0] }}</span>
                                                 <div class="extra-small-desc lh-1">{{ $schedule[1] }}</div>
@@ -422,7 +476,13 @@
                                         <span class="sanita-badge {{ $schedule[5] }} {{ $schedule[6] }}">{{ $schedule[4] }}</span>
                                     </td>
                                 </tr>
-                                @endforeach
+                                @empty
+                                <tr>
+                                    <td colspan="3" class="text-center py-4">
+                                        <p class="text-body-secondary mb-0" style="font-size: 0.8rem;">Belum ada jadwal hari ini</p>
+                                    </td>
+                                </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -435,4 +495,53 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Tambah Petugas -->
+<div class="modal fade" id="addPetugasModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 12px; border: none; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);">
+      <div class="modal-header border-bottom-0 pb-0">
+        <h5 class="modal-title sanita-text-green fw-bold">Tambah Petugas</h5>
+        <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{{ route('petugas.store') }}" method="POST">
+        @csrf
+        <div class="modal-body text-start">
+            <div class="mb-3">
+                <label class="form-label small fw-bold sanita-text-green mb-1">Nama Petugas</label>
+                <input type="text" name="nama_petugas" class="form-control form-control-sm bg-adaptive-input" placeholder="Nama Lengkap" required style="border-radius: 6px; padding: 0.4rem 0.75rem;">
+            </div>
+            <div class="mb-3">
+                <label class="form-label small fw-bold sanita-text-green mb-1">Email</label>
+                <input type="email" name="email" class="form-control form-control-sm bg-adaptive-input" placeholder="contoh@sanitacheck.id" required style="border-radius: 6px; padding: 0.4rem 0.75rem;">
+            </div>
+            <div class="mb-3">
+                <label class="form-label small fw-bold sanita-text-green mb-1">No. HP</label>
+                <input type="text" name="no_hp" class="form-control form-control-sm bg-adaptive-input" placeholder="08123456789" required style="border-radius: 6px; padding: 0.4rem 0.75rem;">
+            </div>
+            <div class="mb-3">
+                <label class="form-label small fw-bold sanita-text-green mb-1">Status</label>
+                <select name="status_aktif" class="form-select form-select-sm bg-adaptive-input" required style="border-radius: 6px; padding: 0.4rem 2rem 0.4rem 0.75rem;">
+                    <option value="1" selected>Aktif</option>
+                    <option value="0">Nonaktif</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer border-top-0 pt-0">
+            <button type="button" class="btn btn-outline-secondary btn-sm fw-bold" data-coreui-dismiss="modal" style="border-radius: 6px; padding: 0.4rem 1rem;">Batal</button>
+            <button type="submit" class="btn sanita-btn-green btn-sm fw-bold shadow-sm" style="padding: 0.4rem 1rem;">Simpan Data</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+    .custom-pagination .pagination {
+        margin-bottom: 0;
+        --bs-pagination-padding-x: 0.5rem;
+        --bs-pagination-padding-y: 0.25rem;
+        --bs-pagination-font-size: 0.875rem;
+    }
+</style>
 @endsection

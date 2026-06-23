@@ -21,8 +21,8 @@
                 </div>
                 <div>
                     <div class="text-success fw-bold" style="font-size: 0.8rem;">Total Fasilitas</div>
-                    <div class="fw-bold text-success" style="font-size: 1.5rem; line-height: 1;">25</div>
-                    <div class="text-body-secondary" style="font-size: 0.7rem;">Semua fasilitas aktif</div>
+                    <div class="fw-bold text-success" style="font-size: 1.5rem; line-height: 1;">{{ $totalFasilitas }}</div>
+                    <div class="text-body-secondary" style="font-size: 0.7rem;">Semua fasilitas terdaftar</div>
                 </div>
             </div>
         </div>
@@ -39,8 +39,8 @@
                 </div>
                 <div>
                     <div class="text-success fw-bold" style="font-size: 0.8rem;">Inspeksi Hari Ini</div>
-                    <div class="fw-bold text-success" style="font-size: 1.5rem; line-height: 1;">8</div>
-                    <div class="text-body-secondary" style="font-size: 0.7rem;">Dari total 25 fasilitas</div>
+                    <div class="fw-bold text-success" style="font-size: 1.5rem; line-height: 1;">{{ $inspeksiHariIni }}</div>
+                    <div class="text-body-secondary" style="font-size: 0.7rem;">Total inspeksi hari ini</div>
                 </div>
             </div>
         </div>
@@ -56,8 +56,8 @@
                 </div>
                 <div>
                     <div class="text-success fw-bold" style="font-size: 0.8rem;">Tindak Lanjut</div>
-                    <div class="fw-bold text-success" style="font-size: 1.5rem; line-height: 1;">6</div>
-                    <div class="text-body-secondary" style="font-size: 0.7rem;">Perlu dibersihkan</div>
+                    <div class="fw-bold text-success" style="font-size: 1.5rem; line-height: 1;">{{ count($fasilitasTindakLanjut) }}</div>
+                    <div class="text-body-secondary" style="font-size: 0.7rem;">Perlu perhatian/dibersihkan</div>
                 </div>
             </div>
         </div>
@@ -73,7 +73,7 @@
                 </div>
                 <div>
                     <div class="text-success fw-bold" style="font-size: 0.8rem;">Fasilitas Buruk</div>
-                    <div class="fw-bold text-success" style="font-size: 1.5rem; line-height: 1;">2</div>
+                    <div class="fw-bold text-success" style="font-size: 1.5rem; line-height: 1;">{{ $fasilitasBurukCount }}</div>
                     <div class="text-body-secondary" style="font-size: 0.7rem;">Kondisi sanitasi buruk</div>
                 </div>
             </div>
@@ -124,46 +124,32 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @forelse($fasilitasTindakLanjut as $index => $ft)
                             <tr>
-                                <td class="text-center text-body-secondary small py-2">1</td>
-                                <td class="text-body-secondary small py-2">Toilet Lantai 2</td>
-                                <td class="text-body-secondary small py-2">Kampus 3</td>
-                                <td class="text-center py-2"><span class="badge bg-success" style="min-width: 90px; font-size: 0.7rem;">Bersih & Aman</span></td>
-                                <td class="text-center text-body-secondary py-2">⋮</td>
+                                <td class="text-center text-body-secondary small py-2">{{ $index + 1 }}</td>
+                                <td class="text-body-secondary small py-2">{{ $ft->nama_fasilitas }}</td>
+                                <td class="text-body-secondary small py-2">{{ $ft->lokasi }}</td>
+                                <td class="text-center py-2">
+                                    @if($ft->status_badge == 'buruk')
+                                        <span class="badge bg-danger" style="min-width: 90px; font-size: 0.7rem;">Buruk</span>
+                                    @elseif($ft->status_badge == 'perlu_perhatian')
+                                        <span class="badge bg-warning text-dark" style="min-width: 90px; font-size: 0.7rem;">Perlu Perhatian</span>
+                                    @else
+                                        <span class="badge bg-secondary" style="min-width: 90px; font-size: 0.7rem;">Unknown</span>
+                                    @endif
+                                </td>
+                                <td class="text-center text-body-secondary py-2"><a href="/fasilitas-umum" class="text-decoration-none">⋮</a></td>
                             </tr>
+                            @empty
                             <tr>
-                                <td class="text-center text-body-secondary small py-2">2</td>
-                                <td class="text-body-secondary small py-2">Kantin Mami ITSK</td>
-                                <td class="text-body-secondary small py-2">Campusp 2</td>
-                                <td class="text-center py-2"><span class="badge bg-danger" style="min-width: 90px; font-size: 0.7rem;">Buruk</span></td>
-                                <td class="text-center text-body-secondary py-2">⋮</td>
+                                <td colspan="5" class="text-center text-body-secondary py-3">Semua fasilitas dalam kondisi baik!</td>
                             </tr>
-                            <tr>
-                                <td class="text-center text-body-secondary small py-2">3</td>
-                                <td class="text-body-secondary small py-2">Wastafel Cuci Tangan</td>
-                                <td class="text-body-secondary small py-2">Kampus 4</td>
-                                <td class="text-center py-2"><span class="badge bg-warning text-dark" style="min-width: 90px; font-size: 0.7rem;">Perlu Perhatian</span></td>
-                                <td class="text-center text-body-secondary py-2">⋮</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center text-body-secondary small py-2">4</td>
-                                <td class="text-body-secondary small py-2">Lobby Rektorat ITSK Soepraoen</td>
-                                <td class="text-body-secondary small py-2">Kampus 2</td>
-                                <td class="text-center py-2"><span class="badge bg-warning text-dark" style="min-width: 90px; font-size: 0.7rem;">Perlu Perhatian</span></td>
-                                <td class="text-center text-body-secondary py-2">⋮</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center text-body-secondary small py-2">5</td>
-                                <td class="text-body-secondary small py-2">LPPM ITSK Soepraoen</td>
-                                <td class="text-body-secondary small py-2">Kampus 2</td>
-                                <td class="text-center py-2"><span class="badge bg-warning text-dark" style="min-width: 90px; font-size: 0.7rem;">Perlu Perhatian</span></td>
-                                <td class="text-center text-body-secondary py-2">⋮</td>
-                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
                 <div class="mt-2 text-end">
-                    <button class="btn btn-outline-success btn-sm fw-bold" style="border-radius: 20px; padding: 0.2rem 0.8rem; font-size: 0.75rem;">Lihat Semua</button>
+                    <a href="/fasilitas-umum" class="btn btn-outline-success btn-sm fw-bold" style="border-radius: 20px; padding: 0.2rem 0.8rem; font-size: 0.75rem;">Lihat Semua</a>
                 </div>
             </div>
         </div>
@@ -175,40 +161,20 @@
             <div class="card-body p-3 d-flex flex-column">
                 <h6 class="card-title text-success fw-bold mb-3">Masalah Terbanyak</h6>
                 
+                @forelse($masalahTerbanyak as $index => $mt)
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <div class="d-flex align-items-center">
-                        <span class="text-body-secondary small me-2 fw-bold">1</span>
-                        <span class="text-body-secondary small">Lobby Rektorat ITSK</span>
+                        <span class="text-body-secondary small me-2 fw-bold">{{ $index + 1 }}</span>
+                        <span class="text-body-secondary small">{{ $mt->fasilitas->nama_fasilitas ?? 'Unknown' }}</span>
                     </div>
-                    <span class="badge bg-danger rounded-pill px-2 py-1" style="font-size: 0.7rem;">8 Kali</span>
+                    <span class="badge {{ $mt->total > 5 ? 'bg-danger' : 'bg-warning text-dark' }} rounded-pill px-2 py-1" style="font-size: 0.7rem;">{{ $mt->total }} Kali</span>
                 </div>
-                
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="d-flex align-items-center">
-                        <span class="text-body-secondary small me-2 fw-bold">2</span>
-                        <span class="text-body-secondary small">LPPM ITSK Soepraoen</span>
-                    </div>
-                    <span class="badge bg-warning text-dark rounded-pill px-2 py-1" style="font-size: 0.7rem;">7 Kali</span>
-                </div>
-                
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="d-flex align-items-center">
-                        <span class="text-body-secondary small me-2 fw-bold">3</span>
-                        <span class="text-body-secondary small">Kantin Mami ITSK</span>
-                    </div>
-                    <span class="badge bg-warning text-dark rounded-pill px-2 py-1" style="font-size: 0.7rem;">4 Kali</span>
-                </div>
-                
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <div class="d-flex align-items-center">
-                        <span class="text-body-secondary small me-2 fw-bold">4</span>
-                        <span class="text-body-secondary small">Wastafel Cuci Tangan</span>
-                    </div>
-                    <span class="badge bg-warning text-dark rounded-pill px-2 py-1" style="font-size: 0.7rem;">2 Kali</span>
-                </div>
+                @empty
+                <p class="text-muted small text-center my-4">Belum ada data masalah yang tercatat.</p>
+                @endforelse
                 
                 <div class="mt-auto text-end pt-2">
-                    <button class="btn btn-outline-success btn-sm fw-bold" style="border-radius: 20px; padding: 0.2rem 0.8rem; font-size: 0.75rem;">Lihat Semua</button>
+                    <a href="/inspeksi-sanitasi" class="btn btn-outline-success btn-sm fw-bold" style="border-radius: 20px; padding: 0.2rem 0.8rem; font-size: 0.75rem;">Lihat Inspeksi</a>
                 </div>
             </div>
         </div>
@@ -244,7 +210,12 @@
                 data: {
                     labels: ['Bersih dan Aman', 'Perlu Perhatian', 'Perlu Dibersihkan', 'Buruk'],
                     datasets: [{
-                        data: [13, 6, 4, 2],
+                        data: [
+                            {{ $statusCount['bersih'] ?? 0 }}, 
+                            {{ $statusCount['perlu_perhatian'] ?? 0 }}, 
+                            {{ $statusCount['perlu_dibersihkan'] ?? 0 }}, 
+                            {{ $statusCount['buruk'] ?? 0 }}
+                        ],
                         backgroundColor: ['#28a745', '#ffc107', '#fd7e14', '#dc3545'],
                         borderWidth: 0,
                         hoverOffset: 4
@@ -281,14 +252,14 @@
                         ctx.font = "bold 2.5em sans-serif";
                         ctx.textBaseline = "middle";
                         ctx.fillStyle = getThemeColors().textColor;
-                        var text = "25",
+                        var text = "{{ $totalFasilitas }}",
                             textX = Math.round((chart.chartArea.left + chart.chartArea.right - ctx.measureText(text).width) / 2),
                             textY = (chart.chartArea.top + chart.chartArea.bottom) / 2 - 10;
                         ctx.fillText(text, textX, textY);
                         
                         // Subtext
                         ctx.font = "0.9em sans-serif";
-                        var text2 = "Total (Items)",
+                        var text2 = "Total Fasilitas",
                             text2X = Math.round((chart.chartArea.left + chart.chartArea.right - ctx.measureText(text2).width) / 2),
                             text2Y = textY + 30;
                         ctx.fillText(text2, text2X, text2Y);
@@ -302,21 +273,21 @@
             lineChart = new Chart(ctxLine, {
                 type: 'line',
                 data: {
-                    labels: ['16 Mei', '17 Mei', '18 Mei', '19 Mei', '20 Mei', '21 Mei', '22 Mei'],
-                    datasets: [{
-                        label: 'Inspeksi',
-                        data: [6, 12, 15, 10, 14, 10, 18],
-                        borderColor: '#28a745',
-                        backgroundColor: '#28a745',
-                        borderWidth: 3,
-                        pointBackgroundColor: colors.pointBgColor,
-                        pointBorderColor: '#28a745',
-                        pointBorderWidth: 2,
-                        pointRadius: 5,
-                        pointHoverRadius: 7,
-                        tension: 0.3
-                    }]
-                },
+                            labels: {!! json_encode($last7Days) !!},
+                            datasets: [{
+                                label: 'Inspeksi',
+                                data: {!! json_encode($inspeksiCounts) !!},
+                                borderColor: '#28a745',
+                                backgroundColor: '#28a745',
+                                borderWidth: 3,
+                                pointBackgroundColor: colors.pointBgColor,
+                                pointBorderColor: '#28a745',
+                                pointBorderWidth: 2,
+                                pointRadius: 5,
+                                pointHoverRadius: 7,
+                                tension: 0.3
+                            }]
+                        },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,

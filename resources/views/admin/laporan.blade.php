@@ -70,14 +70,7 @@
 
 <!-- KPI Cards -->
 <div class="row mb-3">
-    @foreach([
-        ['Total Inspeksi', '86', 'Semua inspeksi', 'success', 'M334.627 16H48v480h424V153.373ZM440 166.627V168H320V48h1.373ZM80 464V48h208v152h152v264Z'],
-        ['Kondisi Baik', '38', '44% dari total inspeksi', 'success', 'M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48Zm108.25 138.29-134.4 160a16 16 0 0 1-23.35 1.14l-80-80a16 16 0 0 1 22.62-22.62l67.24 67.24 123.36-146.85a16 16 0 0 1 24.53 21.09Z'],
-        ['Kondisi Cukup', '26', '30% dari total inspeksi', 'warning', 'M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48Zm96 224H160a16 16 0 0 1 0-32h192a16 16 0 0 1 0 32Z'],
-        ['Kondisi Buruk', '22', '26% dari total inspeksi', 'danger', 'M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48m0 384A176 176 0 1 1 432 256 176 176 0 0 1 256 432Z'],
-        ['Perlu Tindak Lanjut', '28', '33% dari total inspeksi', 'warning', 'M494 198.671a40.54 40.54 0 0 0-32.174-27.592l-115.909-18.837-53.732-104.414a40.7 40.7 0 0 0-72.37 0l-53.732 104.414-115.907 18.837a40.7 40.7 0 0 0-22.364 68.827l82.7 83.368-17.9 116.055a40.672 40.672 0 0 0 58.548 42.538L256 428.977l104.843 52.89a40.69 40.69 0 0 0 58.548-42.538l-17.9-116.055 82.7-83.368A40.54 40.54 0 0 0 494 198.671'],
-        ['Rata-rata Skor', '78', '/ 100 (Baik)', 'primary', ''],
-    ] as $i => $kpi)
+    @foreach($kpis as $i => $kpi)
     <div class="col-sm-6 col-lg-2 mb-2">
         <div class="card border shadow-sm h-100" style="border-radius: 12px;">
             <div class="card-body p-2 d-flex align-items-center">
@@ -128,10 +121,10 @@
             <div class="card-body p-3">
                 <h6 class="card-title text-success fw-bold mb-3">Status Tindak Lanjut</h6>
                 @foreach([
-                    ['Aman', 38, 44, 'success'],
-                    ['Perlu Dibersihkan', 20, 23, 'warning'],
-                    ['Perlu Perbaikan', 8, 9, 'warning'],
-                    ['Perlu Tindak Lanjut', 20, 23, 'danger'],
+                    ['Aman / Baik', $kondisiBaik, $baikP, 'success'],
+                    ['Perlu Dibersihkan', $kondisiCukup, $cukupP, 'warning'],
+                    ['Perlu Perbaikan / Buruk', $kondisiBuruk, $burukP, 'danger'],
+                    ['Menunggu Tindak Lanjut', $tindakLanjut, $tindakLanjutP, 'info'],
                 ] as $status)
                 <div class="mb-3">
                     <div class="d-flex justify-content-between small mb-1">
@@ -169,16 +162,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach([
-                                ['Toilet Lantai 1','Gedung A',12,6,3,3,70,'warning','Cukup'],
-                                ['Toilet Lantai 2','Gedung A',10,5,3,2,75,'warning','Cukup'],
-                                ['Kantin Sehat','Gedung B',12,4,5,3,68,'warning','Cukup'],
-                                ['Ruang Tunggu','Gedung C',10,8,1,1,85,'success','Baik'],
-                                ['Tempat Cuci Tangan','Halaman Depan',12,6,4,2,72,'warning','Cukup'],
-                                ['Toilet Perempuan','Gedung B',11,5,2,4,65,'danger','Buruk'],
-                                ['Ruang Kelas 3A','Gedung D',9,7,1,1,82,'success','Baik'],
-                                ['Area Parkir','Halaman Belakang',10,3,5,2,60,'danger','Buruk'],
-                            ] as $i => $row)
+                            @forelse($rekapFasilitas as $i => $row)
                             <tr>
                                 <td class="text-center text-body-secondary small py-2">{{ $i + 1 }}</td>
                                 <td class="small py-2 fw-semibold">{{ $row[0] }}</td>
@@ -189,11 +173,14 @@
                                 <td class="text-center small py-2"><span class="text-danger fw-semibold">{{ $row[5] }}</span></td>
                                 <td class="text-center py-2">
                                     <span class="small fw-bold" style="font-size: 0.8rem;">{{ $row[6] }}</span>
-                                    <!-- Memperbaiki pewarnaan badge warning agar teks terbaca di tema putih -->
                                     <span class="badge {{ $row[7] === 'warning' ? 'bg-warning text-dark' : 'bg-'.$row[7] }} ms-1" style="font-size: 0.7rem;">{{ $row[8] }}</span>
                                 </td>
                             </tr>
-                            @endforeach
+                            @empty
+                            <tr>
+                                <td colspan="8" class="text-center py-4 text-muted">Belum ada data rekap fasilitas.</td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -338,11 +325,9 @@ document.addEventListener("DOMContentLoaded", function() {
     let trendChart = new Chart(document.getElementById('trendLineChart').getContext('2d'), {
         type: 'line',
         data: {
-            labels: ['Des 24', 'Jan 25', 'Feb 25', 'Mar 25', 'Apr 25', 'Mei 25'],
+            labels: {!! json_encode(array_reverse($trendLabels)) !!},
             datasets: [
-                { label: 'Baik', data: [20, 25, 30, 28, 35, 38], borderColor: '#28a745', backgroundColor: '#28a745', borderWidth: 2, tension: 0.3, pointRadius: 3 },
-                { label: 'Cukup', data: [15, 18, 22, 28, 24, 26], borderColor: '#ffc107', backgroundColor: '#ffc107', borderWidth: 2, tension: 0.3, pointRadius: 3 },
-                { label: 'Buruk', data: [10, 12, 8, 15, 18, 22], borderColor: '#dc3545', backgroundColor: '#dc3545', borderWidth: 2, tension: 0.3, pointRadius: 3 }
+                { label: 'Total Inspeksi', data: {!! json_encode(array_reverse($trendData)) !!}, borderColor: '#198754', backgroundColor: 'rgba(25, 135, 84, 0.1)', borderWidth: 2, fill: true, tension: 0.3, pointRadius: 3 }
             ]
         },
         options: {
@@ -359,8 +344,8 @@ document.addEventListener("DOMContentLoaded", function() {
     let conditionChart = new Chart(document.getElementById('conditionDoughnut').getContext('2d'), {
         type: 'doughnut',
         data: {
-            labels: ['Baik (44%)', 'Cukup (30%)', 'Buruk (26%)'],
-            datasets: [{ data: [38, 26, 22], backgroundColor: ['#28a745', '#ffc107', '#dc3545'], borderWidth: 0 }]
+            labels: ['Baik ('+{{ $baikP }}+'%)', 'Cukup ('+{{ $cukupP }}+'%)', 'Buruk ('+{{ $burukP }}+'%)'],
+            datasets: [{ data: [{{ $kondisiBaik }}, {{ $kondisiCukup }}, {{ $kondisiBuruk }}], backgroundColor: ['#28a745', '#ffc107', '#dc3545'], borderWidth: 0 }]
         },
         options: {
             responsive: true, maintainAspectRatio: false, cutout: '70%',
@@ -374,7 +359,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 ctx.font = "bold 2em sans-serif";
                 ctx.textBaseline = "middle";
                 ctx.fillStyle = colors.textColor;
-                const text = "86", textX = Math.round((chart.chartArea.left + chart.chartArea.right - ctx.measureText(text).width) / 2), textY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
+                const text = "{{ $kondisiBaik + $kondisiCukup + $kondisiBuruk }}", textX = Math.round((chart.chartArea.left + chart.chartArea.right - ctx.measureText(text).width) / 2), textY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
                 ctx.fillText(text, textX, textY - 10); // sedikit naik agar teks "Total" pas di bawahnya
                 ctx.font = "0.8em sans-serif";
                 ctx.fillText("Total", textX + 2, textY + 15);

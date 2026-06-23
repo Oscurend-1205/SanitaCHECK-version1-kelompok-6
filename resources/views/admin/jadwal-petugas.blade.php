@@ -26,7 +26,7 @@
                 </div>
                 <div>
                     <div class="fw-bold" style="font-size: 0.8rem; color: #333;">Total Petugas</div>
-                    <div class="fw-bold" style="font-size: 1.5rem; line-height: 1; color: #333;">12</div>
+                    <div class="fw-bold" style="font-size: 1.5rem; line-height: 1; color: #333;">{{ $totalPetugas }}</div>
                     <div class="text-body-secondary" style="font-size: 0.7rem;">Semua petugas terdaftar</div>
                 </div>
             </div>
@@ -42,7 +42,7 @@
                 </div>
                 <div>
                     <div class="fw-bold" style="font-size: 0.8rem; color: #333;">Petugas Aktif</div>
-                    <div class="fw-bold" style="font-size: 1.5rem; line-height: 1; color: #333;">10</div>
+                    <div class="fw-bold" style="font-size: 1.5rem; line-height: 1; color: #333;">{{ $aktifPetugas }}</div>
                     <div class="text-body-secondary" style="font-size: 0.7rem;">Sedang bertugas</div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 </div>
                 <div>
                     <div class="fw-bold" style="font-size: 0.8rem; color: #333;">Jadwal Hari Ini</div>
-                    <div class="fw-bold" style="font-size: 1.5rem; line-height: 1; color: #333;">8</div>
+                    <div class="fw-bold" style="font-size: 1.5rem; line-height: 1; color: #333;">{{ $jadwalHariIni }}</div>
                     <div class="text-body-secondary" style="font-size: 0.7rem;">Petugas dijadwalkan</div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                 </div>
                 <div>
                     <div class="fw-bold" style="font-size: 0.8rem; color: #333;">Total Shift Minggu Ini</div>
-                    <div class="fw-bold" style="font-size: 1.5rem; line-height: 1; color: #333;">56</div>
+                    <div class="fw-bold" style="font-size: 1.5rem; line-height: 1; color: #333;">{{ $totalShift }}</div>
                     <div class="text-body-secondary" style="font-size: 0.7rem;">Seluruh shift terjadwal</div>
                 </div>
             </div>
@@ -186,58 +186,43 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach([
-                        ['Budi Santoso', 'Toilet Lantai 2', 'Gedung A', '08:00 - 09:30', 'Inspeksi Rutin', true, true, true, true, true, false, false, '8.jpg'],
-                        ['Siti Aisyah', 'Kantin Sehat', 'Gedung B', '09:30 - 11:00', 'Inspeksi Rutin', true, true, true, true, true, false, false, '9.jpg'],
-                        ['Andi Wijaya', 'Ruang Tunggu', 'Gedung C', '11:00 - 12:30', 'Inspeksi Rutin', true, true, true, true, true, false, false, '1.jpg'],
-                        ['Rina Marlina', 'Tempat Cuci Tangan', 'Halaman Depan', '13:00 - 14:30', 'Inspeksi Rutin', true, true, true, true, true, false, false, '2.jpg'],
-                        ['Dewi Lestari', 'Toilet Perempuan', 'Gedung B', '14:30 - 16:00', 'Inspeksi Rutin', true, true, true, true, true, false, false, '3.jpg'],
-                        ['Maya Putri', 'Ruang Kelas 1', 'Gedung D', '16:00 - 17:30', 'Inspeksi Rutin', true, true, true, true, true, false, false, '5.jpg'],
-                        ['Fajar Nugroho', 'Tempat Cuci Tangan', 'Belakang', '18:00 - 19:00', 'Inspeksi Tambahan', true, true, true, true, true, false, false, '6.jpg'],
-                        ['Rahmat Hidayat', 'Ruang Tunggu VIP', 'Gedung A', '19:00 - 20:30', 'Inspeksi Malam', true, true, true, true, true, false, false, '4.jpg'],
-                    ] as $i => $row)
+                    @forelse($fasilitas as $i => $item)
                     <tr style="border-bottom: 1px solid rgba(0,0,0,0.05);">
                         <td class="text-center text-body-secondary small py-3 px-3">{{ $i + 1 }}</td>
                         <td class="py-3">
                             <div class="d-flex align-items-center">
-                                <div class="avatar avatar-sm me-2">
-                                    <img class="avatar-img" src="https://ui-avatars.com/api/?name={{ urlencode($row[0] ?? 'User') }}&background=random" alt="user" style="width: 28px; height: 28px; object-fit: cover;">
+                                <div class="avatar avatar-sm me-2 bg-success text-white d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; border-radius: 50%;">
+                                    {{ substr($item->penanggung_jawab ?? 'P', 0, 1) }}
                                 </div>
                                 <div>
-                                    <div class="small fw-semibold" style="color: #333; font-size: 0.8rem;">{{ $row[0] }}</div>
-                                    <div class="text-body-secondary" style="font-size: 0.7rem;">Inspektor</div>
+                                    <div class="small fw-semibold" style="color: #333; font-size: 0.8rem;">{{ $item->penanggung_jawab ?? 'Belum Ditugaskan' }}</div>
+                                    <div class="text-body-secondary" style="font-size: 0.7rem;">Petugas Area</div>
                                 </div>
                             </div>
                         </td>
                         <td class="py-3">
-                            <div class="small" style="color: #333; font-size: 0.8rem;">{{ $row[1] }}</div>
-                            <div class="text-body-secondary" style="font-size: 0.7rem;">({{ $row[2] }})</div>
+                            <div class="small" style="color: #333; font-size: 0.8rem;">{{ $item->nama_fasilitas }}</div>
+                            <div class="text-body-secondary" style="font-size: 0.7rem;">({{ $item->lokasi }})</div>
                         </td>
                         
-                        <!-- Days -->
-                        @for($d = 5; $d <= 11; $d++)
-                        @if($d == 8) <!-- Thursday (Active Column) -->
+                        <!-- Days (Mock) -->
+                        @for($d = 0; $d <= 6; $d++)
+                        @if($d == 3) <!-- Thursday (Active Column) -->
                         <td class="text-center py-3" style="background-color: rgba(40, 167, 69, 0.05); border-left: 1px solid rgba(40, 167, 69, 0.1); border-right: 1px solid rgba(40, 167, 69, 0.1); cursor: pointer;">
-                            @if($row[$d])
-                            <div class="small" style="color: #1b5e3a; font-size: 0.75rem;">{{ $row[3] }}</div>
-                            <div style="color: #28a745; font-size: 0.7rem;">{{ $row[4] }}</div>
-                            @else
-                            <div class="text-body-secondary">-</div>
-                            @endif
+                            <div class="small" style="color: #1b5e3a; font-size: 0.75rem;">08:00 - 16:00</div>
+                            <div style="color: #28a745; font-size: 0.7rem;">Inspeksi Rutin</div>
                         </td>
                         @else
                         <td class="text-center py-3" style="cursor: pointer;">
-                            @if($row[$d])
-                            <div class="small" style="color: #333; font-size: 0.75rem;">{{ $row[3] }}</div>
-                            <div class="text-body-secondary" style="font-size: 0.7rem;">{{ $row[4] }}</div>
-                            @else
-                            <div class="text-body-secondary">-</div>
-                            @endif
+                            <div class="small" style="color: #333; font-size: 0.75rem;">08:00 - 16:00</div>
+                            <div class="text-body-secondary" style="font-size: 0.7rem;">Inspeksi Rutin</div>
                         </td>
                         @endif
                         @endfor
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr><td colspan="10" class="text-center py-4 text-muted">Belum ada jadwal fasilitas.</td></tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

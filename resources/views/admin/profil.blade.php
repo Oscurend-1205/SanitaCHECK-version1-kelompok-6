@@ -19,8 +19,8 @@
                         <img src="https://ui-avatars.com/api/?name=Admin&background=1b5e3a&color=fff" alt="Profile" class="w-100 h-100" style="object-fit: cover;">
                     </div>
                 </div>
-                <h5 class="fw-bold mb-0" style="color: #1b5e3a; font-size: 1.1rem;">Admin SanitaCheck</h5>
-                <p class="text-body-secondary small mb-2">Administrator</p>
+                <h5 class="fw-bold mb-0" style="color: #1b5e3a; font-size: 1.1rem;">{{ auth()->user()->name ?? 'Admin SanitaCheck' }}</h5>
+                <p class="text-body-secondary small mb-2">{{ ucfirst(auth()->user()->role ?? 'Administrator') }}</p>
                 
                 <div class="d-flex justify-content-center gap-2 align-items-center">
                     <span class="badge bg-success rounded-pill px-2 py-1" style="font-size: 0.7rem;">
@@ -85,17 +85,18 @@
                 </div>
                 
                 <div class="row g-0">
+                    @php $user = auth()->user(); @endphp
                     @foreach([
-                        ['Nama Lengkap', 'Admin SanitaCheck'],
-                        ['NIP / ID Petugas', '24102001'],
-                        ['Jabatan', 'Administrator'],
-                        ['Tanggal Lahir', 'Jakarta, 15 Juni 1990'],
-                        ['Jenis Kelamin', 'Laki-laki'],
-                        ['Alamat', 'Jl. Soepraoen No. 1, Malang'],
-                        ['Email', 'admin@sanitacheck.id'],
-                        ['No. Telepon', '0812-3456-7890'],
+                        ['Nama Lengkap', $user->name ?? '-'],
+                        ['NIP / ID Petugas', str_pad($user->id ?? 0, 8, '0', STR_PAD_LEFT)],
+                        ['Jabatan', ucfirst($user->role ?? 'Administrator')],
+                        ['Tanggal Lahir', '-'],
+                        ['Jenis Kelamin', '-'],
+                        ['Alamat', '-'],
+                        ['Email', $user->email ?? '-'],
+                        ['No. Telepon', '-'],
                         ['Lokasi Kerja', 'ITSK RS dr. Soepraoen'],
-                        ['Bergabung Sejak', '12 Januari 2024'],
+                        ['Bergabung Sejak', $user->created_at ? $user->created_at->format('d F Y') : '-'],
                     ] as $field)
                     <div class="col-12 border-bottom py-1d5">
                         <div class="row align-items-center" style="font-size: 0.85rem;">
