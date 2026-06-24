@@ -2,6 +2,17 @@
 
 Aplikasi **SanitaCHECK** adalah platform monitoring sanitasi terintegrasi untuk kampus yang dibangun menggunakan [Laravel 11](https://laravel.com) dan dikelola oleh **Kelompok 6**. Panel admin telah terintegrasi dengan template CoreUI untuk tampilan yang lebih modern, bersih, dan responsif.
 
+## ✨ Fitur Utama
+
+- **Role-Based Access Control (RBAC):** Sistem login aman dengan pemisahan hak akses antara **Admin** dan **Petugas**.
+- **Dashboard Interaktif:** Tampilan dashboard yang informatif untuk Admin dan Petugas, diintegrasikan dengan CoreUI.
+- **Manajemen Fasilitas:** Admin dapat mengelola (CRUD) data fasilitas umum yang ada di kampus.
+- **Manajemen Petugas & Jadwal:** Fitur untuk mengelola data petugas kebersihan beserta jadwal penugasannya.
+- **Inspeksi Sanitasi:** Pencatatan, pengelolaan, dan pelaporan hasil inspeksi sanitasi fasilitas.
+- **Tindak Lanjut & Riwayat:** Pemantauan status tindak lanjut dari hasil inspeksi beserta riwayat historisnya.
+- **Rekap Laporan:** Fasilitas untuk melihat rekapitulasi laporan kegiatan dan kondisi sanitasi.
+- **Area Petugas Khusus:** Halaman khusus bagi petugas untuk melihat jadwal harian dan melakukan input hasil inspeksi langsung di lapangan.
+
 ---
 
 ## 🛠 Persyaratan Sistem
